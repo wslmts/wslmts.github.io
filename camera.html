@@ -3,9 +3,13 @@
     <body>
         <div>
              <video id="video" width="400" height="300"></video>
+             <canvas id="cvs" width="400" height="300"></canvas>
              <button id="live">live</button>
+             <button id="snap">snap</button>
              <script>
                let video=document.querySelector("#video")
+               let cvs=document.querySelector("#cvs")
+               let ctx=cvs.getContext('2d')
                document.querySelector("#live").onclick=playLive
                function playLive(){
                    let URL=window.URL
@@ -14,6 +18,9 @@
                    },function(stream){
                        video.src=URL.createObjectURL(stream)
                        video.play()
+                       document.querySelector("#snap").onclick=function(){
+                           ctx.drawImage(video,0,0,400,300)
+                       }
                    },function(error){
                        console.log(error)
                    })
