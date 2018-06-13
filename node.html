@@ -1,0 +1,29 @@
+<html>
+    <head></head>
+    <script src="vue.js"></script>
+    <style>
+     ul{
+         list-style: none
+     }
+    </style>
+    <body>
+        <div id="app">
+            <ul>
+                <li v-for="i in num"><img :src="getImg(i)"/></li>
+              </ul>
+        </div>
+        <script>
+         new Vue({
+             el:"#app",      
+             data:{
+                 num:5
+             },
+             methods:{
+                 getImg(i){
+                     return "img/node"+i+".png"
+                 }
+             }
+         })
+        </script>
+    </body>
+</html>
