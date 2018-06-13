@@ -1,0 +1,31 @@
+<html>
+    <head></head>
+    <script src="vue.js"></script>
+    <style>
+     ul{
+         list-style: none
+     }
+    </style>
+    <body>
+        <div id="app">
+            <ul>
+                <li v-for="(v,i) in pages"><a :href="getHref(i)" target="_blank">{{v}}</a></li>
+              </ul>
+        </div>
+        <script>
+         new Vue({
+             el:"#app",      
+             data:{
+                 pages:[
+                     'node.html'
+                 ]
+             },
+             methods:{
+                getHref(i){
+                    return this.pages[i]
+                }
+             }
+         })
+        </script>
+    </body>
+</html>
