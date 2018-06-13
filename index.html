@@ -9,7 +9,7 @@
     <body>
         <div id="app">
             <ul>
-                <li v-for="(v,i) in pages"><a :href="getHref(i)" target="_blank">{{v}}</a></li>
+                <li v-for="(v,i) in pages"><a :href="pages[i]" target="_blank">{{v}}</a></li>
               </ul>
         </div>
         <script>
@@ -17,13 +17,10 @@
              el:"#app",      
              data:{
                  pages:[
-                     'node.html'
+                     'node.html','storage.html'
                  ]
              },
              methods:{
-                getHref(i){
-                    return this.pages[i]
-                }
              }
          })
         </script>
