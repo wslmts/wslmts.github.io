@@ -1,0 +1,25 @@
+<html>
+    <head></head>
+    <body>
+        <div>
+             <video id="video" width="400" height="300"></video>
+             <button id="live">live</button>
+             <script>
+               let video=document.querySelector("#video")
+               document.querySelector("#live").onclick=playLive
+               function playLive(){
+                   let URL=window.URL
+                   navigator.getUserMedia({
+                       video:true
+                   },function(stream){
+                       video.src=URL.createObjectURL(stream)
+                       video.play()
+                   },function(error){
+                       console.log(error)
+                   })
+               }
+
+             </script>
+        </div>
+    </body>
+</html>

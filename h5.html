@@ -1,0 +1,15 @@
+<html>
+    <head></head>
+    <body>
+        <div>
+            element.requestFullscreen();
+            使节点全屏；gecko会为元素自动添加css使其铺满屏幕，webkit会让全屏元素以原始尺寸居中到屏幕中央，其余部分变黑色；
+            为保持一致，加css  <br/>
+               :-webkit-full-screen video{width：100%；height:100%;}
+
+            document.exitFullscreen();取消全屏直接调用document上方法；
+            document.addEventListener('fullscreenchange',fn);进入或离开全屏时触发；
+            
+        </div>
+    </body>
+</html>
