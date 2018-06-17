@@ -2,21 +2,27 @@
     <head></head>
     <link type="text/css" rel="stylesheet" href="./css/main.css"/>
     <script src="vue.js"></script>
+    
     <body>
         <div id="app">
             <ul>
-                <li v-for="i in num"><img :src="getImg(i)"/></li>
+                <li v-for="i in num"><img :src="imgs[i]"/></li>
               </ul>
         </div>
         <script>
          new Vue({
              el:"#app",      
              data:{
-                 num:6
+                 num:9
              },
-             methods:{
-                 getImg(i){
-                     return "img/node"+i+".png"
+             computed:{
+                 imgs(){
+                     let a=[]
+                     console.log(111)
+                     for(let i=0;i<this.num;i++){
+                        a.push("img/m"+i+".png")
+                     } 
+                     return a
                  }
              }
          })

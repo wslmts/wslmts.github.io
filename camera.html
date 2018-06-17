@@ -6,6 +6,7 @@
              <canvas id="cvs" width="400" height="300"></canvas>
              <button id="live">live</button>
              <button id="snap">snap</button>
+             <button id="audio">audio</button>
              <script>
                let video=document.querySelector("#video")
                let cvs=document.querySelector("#cvs")
@@ -25,8 +26,16 @@
                        console.log(error)
                    })
                }
-
+               document.querySelector("#live").onclick=function(){
+                 navigator.getUserMedia({audio:true},function(stream){
+                    let context=new AudioContext()
+                    let audioinput=context.createMediaStreamSource(stream)
+                    audioinput.connect(context.destination)
+                 })
+               }
+               
              </script>
+             
         </div>
     </body>
 </html>

@@ -1,0 +1,40 @@
+<html>
+    <head></head>
+    <body>
+        <pre>
+                function f3(a) {
+                    var a;// 仅声明，不赋值
+                    alert(a);//10
+                    alert(arguments[0]);//10
+                    }
+                    f3(10);
+
+                    function f3(a) {
+                        alert(a);//10
+                        var a = 1;// 声明局部变量 a 且赋值为 1
+                        alert(1 === a);//true
+                        alert(arguments[0]);//1
+                        }
+                        f3(10);
+        </pre>
+        <p>
+            <h5>函数节流</h5>
+            <pre>
+                    函数节流背后的基本思想是，某些代码不可以在没有间断的情况连续重复执行。第一次调用函数，创建一个定时
+                    器，在指定的时间间隔之后运行代码。当第二次调用 该函数时，它会清除前一次的定时器并设置另一个。如果前
+                    一个定时器已经执行过了，这个操作就没有任何意义。然而，如果前一个定时器尚未执行，其实就是将其 替换为
+                    一个新的定时器。目的是只有在执行函数的请求停止了一段时间之后才执行。
+                    function throttle (method , context){
+                    clearTimeout (method.tId);
+                    method.tId = setTimeout ( function () {
+                    method.call (context);
+                    } , 100);
+                    }
+                </pre>
+        </p>
+        <script>
+       
+       
+        </script>
+    </body>
+</html>
