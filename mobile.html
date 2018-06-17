@@ -13,13 +13,12 @@
          new Vue({
              el:"#app",      
              data:{
-                 num:9
+                 num:14
              },
              computed:{
                  imgs(){
                      let a=[]
-                     console.log(111)
-                     for(let i=0;i<this.num;i++){
+                     for(let i=1;i<=this.num;i++){
                         a.push("img/m"+i+".png")
                      } 
                      return a
