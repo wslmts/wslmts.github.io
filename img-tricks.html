@@ -1,0 +1,95 @@
+<html>
+    <head></head>
+    <title>测试图片隐藏是否加载</title>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+    </style>
+    <body>
+        <div id="app">
+        <pre>
+            <h5>Test One: Image Tag</h5><h3>大部分浏览器会请求图片</h3>
+            <code>
+                &lt;div id="test1"&gt;
+                &lt;img src="images/test1.png" alt="" /&gt;
+                &lt;/div&gt;
+                @media all and (max-width: 600px) {
+                    #test1 { display:none; }
+                }
+            </code>
+        </pre>
+       
+        <pre>
+            <h5>Test Two: Background Image Display None</h5>
+            <h3>大部分浏览器会请求图片</h3>
+            <code>
+                &lt;div id="test2"&gt; &lt;/div&gt;
+                #test2 {
+                    background-image:url('images/test2.png');
+                    width:200px;
+                    height:75px;
+                }
+                @media all and (max-width: 600px) {
+                    #test2 {display:none;}
+                }
+            </code>
+        </pre>
+
+            <pre>
+                <h5>Test Three: Background Image, Parent Object Set to Display None</h5>
+                <h3>大部分浏览器不会请求图片</h3>
+                <code>
+                    &lt;div id="test3"&lt;div &gt; &lt;/div&gt; &lt;/div&gt;
+                    #test3 div {
+                        background-image:url('images/test3.png');
+                        width:200px;
+                        height:75px;
+                    }
+                    @media all and (max-width: 600px) {
+                        #test3 {
+                            display:none;
+                        }
+                    }
+                </code>
+            </pre>
+
+            <pre>
+                <h5>Test Four: Background Image with Cascade Override</h5>
+                <h3>当屏幕宽度小于600px时，大部分浏览器会请求一张适合自己环境的图片</h3>
+                <code>
+                    &lt;div id="test4"&gt; &lt;/div&gt;
+                    #test4 {
+                        background-image:url('images/test4-desktop.png');
+                        width:200px;
+                        height:75px;
+                    }
+                    @media all and (max-width: 600px) {
+                        #test4 {
+                            background-image:url('images/test4-mobile.png');
+                        }
+                    }
+                </code>
+            </pre>
+
+            <pre>
+                <h5>Test Five: Background Image Where Desktop Image Set with Min-Width</h5>
+                <h3>当屏幕宽度=600px时，大部分浏览器会请求一张适合自己环境的图片</h3>
+                <code>
+                    &lt;div id="test5"&gt; &lt;/div&gt;
+                    @media all and (min-width: 601px) {
+                        #test5 {
+                            background-image:url('images/test5-desktop.png');
+                            width:200px;
+                            height:75px;
+                        }
+                    }
+                    @media all and (max-width: 600px) {
+                        #test5 {
+                            background-image:url('images/test5-mobile.png');
+                            width:200px;
+                            height:75px;
+                        }
+                    }
+                </code>
+            </pre>
+        </div>       
+    </body>
+</html>
