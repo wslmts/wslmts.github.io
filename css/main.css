@@ -6,3 +6,15 @@
 ul{
     list-style: none
 }
+.pull-left{
+    float: left
+}
+.clearfix{
+    content: " ";
+    display: block;
+    clear: both;
+}
+.bfc{
+    overflow: auto;
+
+}

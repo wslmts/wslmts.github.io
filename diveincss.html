@@ -1,0 +1,125 @@
+<html>
+    <head></head>
+    <script src="vue.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>  
+    <body>
+        <div id="app">
+            <ol>
+                <li class="bfc">
+                    <h5>float</h5>
+                    <p>
+                     <img src="img/float.png" class="pull-left"/>
+                     <article>
+                            floats are intended to allow text to wrap around them. When you float an image inside a paragraph, the para- graph does not grow to contain the image.
+                            This means, if the image is taller than the text of the paragraph, 
+                            the next paragraph will start immediately below the text of the first, and the text in both paragraphs will wrap around the float. 
+                     </article>
+                    </p>
+                    <p>
+                            The clear: both declaration causes this element to move below the bottom of floated elements, rather than beside them. 
+                            You can give this property the value left or right to clear only elements floated to the left or right, respectively. 
+                            Because this empty div itself is not floated, the container will extend to encompass it, thereby containing the floats above it as well.
+                             
+                    </p>
+                </li>
+                <li>
+                    <h5>BFC</h5>
+                    <pre>
+                        A block formatting context (sometimes called a BFC) is a region of the page in which elements are laid out. 
+                        A block formatting context itself is part of the surrounding document flow, but it isolates its contents from the outside context.
+                        This isolation does three things for the element that establishes the BFC:
+                        1. It contains the top and bottom margins of all elements within it. 
+                            They won’t collapse with margins of elements outside of the block formatting context.
+                        2. It contains all floated elements within it.
+                        3. It doesn’t overlap with floated elements outside the BFC.
+                        
+                        Put simply, the contents inside a block formatting context will not overlap or interact with elements on the outside 
+                        as you would normally expect. If you apply clear to an element, it’ll only clear floats within its own BFC. And,
+                        if you force an element to have a new BFC, it won’t overlap with other BFCs.
+                        You can establish a new block formatting context in several ways.
+                        Applying any of the following property values to an element triggers one:
+                        1.float: left or float: right—anything but none
+                        2.overflow: hidden, auto, or scroll—anything but visible
+                        3.display: inline-block, table-cell, table-caption, flex, inline-flex,
+                            grid, or inline-grid—these are called block containers.
+                        4.position: absolute or position: fixed
+                    </pre>
+                </li>
+                <li>
+                    <h5>inherit</h5>
+                    <pre>
+                    Sometimes, you’ll want inheritance to take place when a cascaded value is preventing it. 
+                    To do this, you can use the keyword inherit. 
+                    You can override another value with this, and it will cause the element to inherit that 
+                    value from its parent.         
+                   </pre>          
+                </li>
+                <li>
+                    <h5>initial</h5>
+                    <pre>
+                    Sometimes you’ll find you have styles applied to an element that you want to undo.
+                    You can do this by specifying the keyword initial. Every CSS property has an initial, or default, value. 
+                    If you assign the value initial to that property, then it effectively resets to its default value. 
+                    It’s like a hard-reset of that value
+                   </pre>              
+                </li>
+                <li>
+                    <h5>top-right-bottom-left</h5>
+                    Specify three values, and the left and right side will both use the second one. 
+                </li>
+                <li>
+                    <h5>top-right-bottom-left</h5>
+                    Specify three values, and the left and right side will both use the second one. 
+                </li>
+                <li>
+                    <h5>Defining a custom property</h5>
+                    <pre>
+                        :root {
+                            --main-font: Helvetica, Arial, sans-serif;
+                        }
+                        This listing defines a variable named --main-font, and sets its value to a set of common sans-serif fonts.
+                        The name must begin with two hyphens (--) to distinguish it from CSS properties, followed by whatever name you’d like to use.
+                        Variables must be declared inside a declaration block. I’ve used the :root selector here, which sets the variable for the whole page.
+                        By itself, this variable declaration doesn’t do anything until we use it. 
+                        Again, you’ve defined the variables inside a ruleset with the :root selector. 
+                        This is significant because it means these values are set for everything in the root element (the entire page). 
+                        When a descendant element of the root uses the variables, these are the values they’ll resolve to.
+                    </pre>
+                    <h5>A function called var() allows the use of variables.</h5>
+                    <pre>p {
+                            font-family: var(--main-font);
+                          }
+                          The var() function accepts a second parameter, which specifies a fallback value. 
+                          If the variable specified in the first parameter is not defined, then the second value is used instead.
+                    </pre>
+                </li>
+                <li>
+                    <h5>Here are ways to prevent margins from Collapsing outside a container:</h5>
+                   <ol>
+                        <li>
+                            Applying overflow: auto (or any value other than visible) to the container prevents margins inside the container from 
+                            collapsing with those outside the container. This is often the least intrusive solution.
+                        </li>    
+                        <li>
+                            Adding a border or padding between two margins stops them from collapsing.
+                        </li>
+                        <li>
+                            Margins won’t collapse to the outside of a container that is floated, that is an inline block, 
+                            or that has an absolute or fixed position.                           
+                       </li>
+                       <li>
+                            When using a flexbox, margins won’t collapse between elements that are part of the flex layout. 
+                            This is also the case with grid layout .
+                       </li>
+                       <li>
+                            Elements with a table-cell display don’t have a margin, so they won’t collapse. 
+                            This also applies to table-row and most other table display types. can use border-spacing instead.
+                            Exceptions are table, table-inline, and table-caption.
+                       </li>
+                   </ol>
+                </li>
+            </ol>
+        </div>
+        
+    </body>
+</html>
