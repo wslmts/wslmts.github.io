@@ -23,6 +23,31 @@
                     </p>
                 </li>
                 <li>
+                    <h5>linear-gradient</h5>
+                    You can specify the angle of the gradient in several ways.  
+                    You can even specify a corner such as to bottom right; in which case,
+                    the gradient will begin at the top-left corner of the element and blend to the bottom-right corner.
+                    For more precise control of the angle, you can use more specific units, such as degrees. 
+                    The value 0deg points straight up (equivalent to to top); higher values move clockwise around the circle,
+                    so 90deg points to the right, 180deg points down, 360deg points up again. Thus, this is equivalent to the previous example.
+                  
+                    If you place two color stops at the same position, the gradient’s color will instantly switch from one to the other, rather than a smooth transition.
+                    <pre>
+                        
+                        Degrees are the most common unit, but there are a few others that you can use to indicate angle:
+                        1. rad—Indicates radians. One full circle is 2, or roughly 6.2832 radians.
+                        2. turn—Indicates the number of full turns around the circle. One turn equals 360 degrees (360deg). Use decimal values to represent less than one full turn:
+                        0.25turn, for example, is equal to 90deg.
+                        3. grad—Indicates gradians. One full circle is 400 gradians (400grad) and 100grad
+                        equals 90deg.
+                    </pre>
+                </li>
+                <li>
+                    When you apply multiple background images, those listed first render in front of those listed afterward. 
+                    But if you’ve added two images, you’ll likely want the second image to show through. You can do this by using a blend mode.
+                    先罗列的显示在前面；
+                </li>
+                <li>
                     <h5>BFC</h5>
                     <pre>
                         A block formatting context (sometimes called a BFC) is a region of the page in which elements are laid out. 

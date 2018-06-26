@@ -1,0 +1,66 @@
+<html>
+    <head></head>
+    <script src="vue.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>  
+    <body>
+        <div id="app">
+                <h2>css rendering stage</h2>
+            <ol>     
+                <li>After the browser computes which styles apply to which elements on the page, it needs to translate those styles into pixels on the screen. 
+                    This is the process of rendering, which can be broken down into three stages: <em class="red">layout, paint, and composite</em>.
+                </li>          
+                <li>    
+                <h3>LAYOUT</h3>
+                In the first stage, layout, the browser calculates how much space each element is going to take on the screen. 
+                Because of the way the document flow works, 
+                the size and position of one element can influence the size and position of countless other elements on the page. This stage sorts that all out.
+                Any time you change the width or height of an element, or adjust its position properties (like top or left), the element’s layout must be recomputed. 
+                This is also done if an element is inserted into or removed from the DOM by JavaScript. 
+                When a layout change occurs, the browser then must reflow the page,
+                recomputing the layout of all other elements that are moved or resized as a result of the change.
+                
+                </li>
+                <li>
+                <h3>PAINT</h3>
+                After layout comes painting. This is the process of filling in pixels: text is drawn; images and borders and shadows are all colored. 
+                This is not physically displayed on the screen, but rather drawn into memory. Portions of the page are painted into layers.
+                If you change the background color of an element, for instance, it must be repainted. But, 
+                because the background color has no impact on the position or sizing of any elements on the page, 
+                layout doesn’t need to be recalculated to account for this change. 
+                Changing a background color is less computationally intensive than changing the size of an element.
+                Under the right conditions, an element on the page can be promoted into its own layer. When this happens, 
+                it’s painted separately from the other layer(s) on the page. Browsers can take this layer and send it to the computer’s GPU (graphics processing unit) for rendering,
+                rather than painting it on the main CPU like the main layer. This is beneficial because the GPU is highly optimized to do this sort of computation.
+                This is often referred to as hardware acceleration because it relies on a piece of the computer’s hardware to give a boost to the rendering speed. 
+                Having more layers means more memory use; but, in return, it can speed up the processing time of rendering.
+                </li>
+                <li>
+                    <h3>COMPOSITE</h3>
+                    In the composite stage, the browser takes all of the layers that have been painted and draws them into the final image that’ll be displayed onscreen. 
+                    These are drawn in a certain order so that the correct layers appear in front of other layers, in cases where they overlap.
+                    Two properties, opacity and transform, when changed, result in a much faster rendering time. When you change one of these on an element, 
+                    the browser can promote that element to its own paint layer and use GPU acceleration. Because the element is in its own layer, 
+                    the main layer won’t change during the animation and won’t require repeated re-painting.
+                    When making a one-time change to the page, this optimization generally doesn’t make a noticeable difference. 
+                    But when the change is part of an animation, the screen needs to be updated dozens of times a second; in which case, speed matters. 
+                    Most screens refresh 60 times per second. Ideally, changes during animation should be recomputed at least this fast to produce the most fluid motion possible onscreen. 
+                    The more work the browser has to do for each recalculation, the harder this speed is to achieve.
+                </li>
+            </ol>
+            <section>
+                    <h5>Controlling paint layers with will-change</h5>
+                    Browsers have come a long way with optimizing the rendering process, segmenting elements into layers as best they can. 
+                    If you animate the transform or opacity property on an element, modern browsers, in order to make the animation smooth, 
+                    generally make good decisions based on a number of factors, including system resources. 
+                    But, occasionally, you might encounter choppy or flickering animations.
+                    If you experience this, you can use a property called will-change to exert control over the render layers. 
+                    This property indicates to the browser, ahead of time, that it should expect a certain property on the element to change. 
+                    This usually means the element will be promoted to its own paint layer. 
+                    For example, applying will-change: transform indicates you expect to change the transform property for that element.
+                    it states that only 3D transforms promote an element to its own layer. 
+                    This is no longer the case; the latest browsers now use GPU acceleration for 2D transforms as well.
+            </section>
+        </div>
+        
+    </body>
+</html>
