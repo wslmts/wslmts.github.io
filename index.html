@@ -1,13 +1,16 @@
 <html>
-    <head></head>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
     <script src="vue.js"></script>
     <style>
      ul{
          list-style: none
      }
     </style>
+     </head>
     <body>
         <div id="app">
+            <h3>online note</h3>
             <ul>
                 <li v-for="(v,i) in pages"><a :href="pages[i]" target="_blank">{{v}}</a></li>
               </ul>
@@ -18,7 +21,7 @@
              data:{
                  pages:[
                      'node.html','storage.html','h5.html','camera.html','mobile.html',
-                     'htmlentity.html','img-tricks.html','diveincss.html','rending.html',
+                     'htmlentity.html','img-tricks.html','diveincss.html','rending.html','nodejs-base.html',
                      'srcset-sizes-picture/srcset.html','srcset-sizes-picture/sizes.html','srcset-sizes-picture/pictures.html'
                  ]
              },
