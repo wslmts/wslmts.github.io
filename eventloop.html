@@ -36,6 +36,15 @@
                 而且把浏览器最小化显示等操作时，setInterval并不是不执行程序，它会把setInterval的回调函数放在队列中，等浏览器窗口再次打开时，一瞬间全部执行时
                 
                 所以，鉴于这么多但问题，目前一般认为的最佳方案是：用setTimeout模拟setInterval，或者特殊场合直接用requestAnimationFrame
+                <img src="img/timer.png"/>
+                上图可见，setInterval每隔100ms往队列中添加一个事件；100ms后，添加T1定时器代码至队列中，主线程中还有任务在执行，所以等待，some event执行结束后执行T1定时器代码；
+                又过了100ms，T2定时器被添加到队列中，主线程还在执行T1代码，所以等待；又过了100ms，理论上又要往队列里推一个定时器代码，但由于此时T2还在队列中，所以T3不会被添加，
+                结果就是此时被跳过；这里我们可以看到，T1定时器执行结束后马上执行了T2代码，所以并没有达到定时器的效果。
+
+                综上所述，setInterval有两个缺点：
+
+                使用setInterval时，某些间隔会被跳过；
+                可能多个定时器会连续执行；
           </pre>
           <h5>macrotask和microtask，在ECMAScript中，microtask称为</h5>
           <ol>
