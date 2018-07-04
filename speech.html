@@ -1,0 +1,35 @@
+<html>
+    <head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+    <script src="vue.js"></script>
+    <style>
+     ul{
+         list-style: none
+     }
+    </style>
+     </head>
+    <body>
+        <div id="app">
+                <input v-model="word">
+                <button @click="speak">speak</button>
+        </div>
+        <script>
+         new Vue({
+             el:"#app",      
+             data:{
+                word:"hello"
+             },
+             
+             methods:{
+                speak(){
+                    var speechSU = new window.SpeechSynthesisUtterance();
+                    speechSU.text = this.word
+                    window.speechSynthesis.speak(speechSU);
+                }
+             }
+         })
+         
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+     </head>
+    <body>
+        <div id="app">         
+              <ul> 
+                  <li>
+                      <h3>浏览器图片反防盗链</h3>
+                      <ol>
+                          <li>
+                              <h5>添加meta标签</h5>
+                              <pre>
+                            一种方法是给页面添加一个meta标签，在meta标签里指定referrer的值，
+                            一个是来自whatwg的标准。他给meta标签的referrer属性定义了四个值：never,always,origin,default。
+                            如果需要关闭referrer，就将referrer的值设置成”never”。这个标准还是比较老的，而且在他的主页上也明确写了”This document is obsolete.”。
+                            
+                            另外一个是来自MDN的标准。他给meta标签的referrer属性定义了五个值，如果要关闭referrer，就将它的值设置成no-referrer。
+                            不过我们需要注意的是，meta标签添加的位置也很重要，有的浏览器能够识别非head标签中的meta标签，有的就不行。
+                                     
+                              </pre>
+                          </li>
+                          <li>
+                                <h5>添加ReferrerPolicy属性</h5>
+                                <pre>
+                                添加meta标签相当于对文档中的所有链接都取消了referrer，而ReferrerPolicy则更精确的指定了某一个资源的referrer策略。
+                                关于这个策略的定义可以参照MDN。比如我想只对某一个图片取消referrer，如下编写即可:
+
+                                &lt;img src="xxxx.jpg"  referrerPolicy="no-referrer" /&gt;
+                                       
+                                </pre>
+                            </li>
+                      </ol>
+                  </li>
+              </ul>
+        </div>
+       
+    </body>
+</html>
