@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+     </head>
+    <body>
+        <div id="app">         
+          <h3>Attribute和property</h3>
+          <ol>
+            <li>property用于描述对象的内在属性，attribute陈述外在事实；</li>
+            <li>attribute是标记语言的概念（比如HTML语言），而标记语言本身就是一种文本，所以attribute这种文本描述的性质在标记语言中很容易使用。
+                而property则是保存在内存中，而内存会随着程序运行结束被释放，因此变得无法长期储存。著作权归作者所有。
+            </li>
+            <li>
+                    在JavaScript中，DOM对象通常都是多重继承的。同时继承了HTML和JavaScript的Object。
+                    Object是完完全全的内存对象，所以使用的是property，而HTML本身就是标记语言，所以使用的是attribute。
+                    当这两个东西被继承到同一个对象上的时候经常会让人混淆起来。由于一些attribute是很常用的，比如id、class等，
+                    所以DOM把它们映射到property上以方便使用。这样我们就会遇到一个对象同时具有id这个attribute和property.       
+                    <img src="img/attributes-properties.png"/>
+            </li>
+            <li>property和attribute对HTML标签的标准的attribute（比如，name、id、class）会相互影响；但property对于HTML标签的非标准的attribute做的相应修改，
+                不会影响到HTML标签中的attribute，但会存在JavaScript的DOM中的property。
+                标准DOM的properties（DOM属性）与attributes（HTML Attribute，即标签特性）是同步的。公认的attributes会添加到DOM对象property上，
+                比如id、style、className、disabled和checked等。这时候直接操作property（也就是element.checked）或者使用element.getAttribute（或element.setAttribute）效果是一致的。著作权归作者所有。
+            </li>
+            <li>使用setAttribute给HTML标签添加attribute，不管是标准的，还是非标准的都能添加到HTML的标签中。</li>
+            <li>attribute的value值只在初始化的时候跟property一样，使用getAttribute获取的值是初始化的值，如果没有设置则是空，除非使用setAttribute手动去改变，
+                但这个改变也不会影响到property的值。property的value值是input实时输入的值，但该值的改变同样也不会影响attribute的value值。
+            </li>
+            <li>
+                <pre>
+                        element.getAttribute获取的是href的实际值，element.property获取的是完整的url
+                        element.property可以从element.setAttribute获得同步
+                        element.getAttribute不能从element.property获得同步
+                        element.getAttribute只能获得输入框的原始值，element.property可以获取输入框修改后的值
+                        对于checkbox时，未选中时，element.getAttribute返回的是null，element.property返回的是false；反之，选中时，element.getAttribute仍返回null，element.property返回的是true
+                        对于style标签，element.getAttribute返回的是string，而element.property返回的是object                      
+                        原文: https://www.w3cplus.com/javascript/dom-attributes-and-properties.html
+                </pre>
+            </li>
+            <li>
+                
+            </li>
+          </ol>    
+        </div>
+       
+    </body>
+</html>
