@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+     </head>
+    <body>
+        <div id="app">
+          <h3>docker</h3>
+          <pre>
+           Docker是开发和系统管理员用来开发，部署和运行应用程序的容器。
+           使用linux容器部署应用程序叫做容器化。容器的概念并不新鲜，但是使用容器易于部署应用却很新鲜。
+        </pre>
+        <ol>
+            <li>
+                <h5>Images and containers</h5>
+                <pre>
+                A container is launched by running an image. 
+                image是一个可执行的包，包括运行应用程序需要的所有内容---代码，运行时环境，库，环境变量和配置文件；
+                container是一个image的运行实例---image执行的时，内存中的样子（即有状态的image或者说是用户进程）
+                你可以使用docker ps,查看正在运行的容器列表；
+                docker container ls -a 查看所有容器
+                </pre>
+            </li>
+            <li>
+                <h5>Containers and virtual machines</h5>
+                <pre>
+                一个特定容器运行在linux，和其他容器共享主机内核。容器运行在分散的进程中，不会因为其他运行程序占用更多内存，使其保持轻量；
+                相反，虚拟机完全运行在虚拟操作系统上，这个虚拟系统通过虚拟机监视器来访问主机资源。
+                总之，虚拟机提供了一个比应用程序需要的资源更多的环境。            
+                </pre>
+                <img src="img/Container@2x.png"   width="300px"/>
+                <img src="img/VM@2x.png"  width="300px"/>
+            </li>
+            <li>
+                <h5>container</h5>
+                <pre>
+                    过去，如果你写一个python程序，要首先安装一个python运行环境，而且要创建一个在你机器上完美运行且在生产环境一样效果的运行环境；
+                    使用docker,你可以提前一个轻便的Python运行环境作为image,不需要安装，然后你的构建包括基本的Pythonimage个你的程序代码，保证了你的应用程序的依赖，运行是环境，是一个整体。
+                    这些轻便的images是通过Dockerfile定义的。    
+                </pre>
+            </li>
+            <li>
+                <h5>Define a container with Dockerfile</h5>
+                <pre>
+                Dockerfile定义了 container环境要做的事情；
+                诸如访问网络接口和磁盘驱功能已经被虚拟到了这个环境里，它是和你的系统隔离的，所以你需要和外部世界映射端口，并且指定你想复制哪个文件到这个环境里；
+                然而，做完这些之后，你就可以做到使用定义在Dockerfile的来构建的应用运行效果是一样的。
+                </pre>
+            </li>
+        </ol>
+          
+       
+         
+        </div>
+         
+    </body>
+</html>

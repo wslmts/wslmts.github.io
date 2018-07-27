@@ -89,7 +89,65 @@
                 
                 渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）
           </pre>
+    
+          <div><img src="img/event.png"/></div>
+          <div><img src="img/event1.png"/></div>
+          <div><img src="img/event2.png"/></div>
+          <pre class="ems">
+            There’s one important point that we need to emphasize. After a macrotask gets executed, 
+            the event loop immediately moves onto handling the microtask queue, without allowing rendering until the microtask queue is empty.
+
+            a re-render can occur between two macrotasks, only if there are no microtasks in between. 
+            In our case, the page can be rendered between the main- line JavaScript execution and the first click handler, 
+            but it can’t be rendered immediately after the first click handler, 
+            because microtasks, such as promise handlers, have priority over rendering.
+
+            A render can also occur after a microtask, but only if no other microtasks are wait- ing in the microtask queue. 
+            In our example, after the promise handler occurs, but before the event loop moves onto the second click handler, the browser can re-render the page.
+          </pre>
+          <div><img src="img/event3.png"/></div>
+          <div><img src="img/event4.png"/></div>
+          <pre class="ems">
+            When the initial block of code ends execution at 18 ms, three code blocks are queued up for execution: the click handler, the time-out handler, 
+            and the first invocation of the interval handler. This means that the waiting click handler (which we assume takes 10 ms to execute) begins execution. 
+
+            Unlike the setTimeout function, which expires only once, the setInterval func- tion fires until we explicitly clear it. 
+            So, at around 20 ms, another interval fires. Normally, this would create a new task and add it to the task queue. 
+            But this time, because an instance of an interval task is already queued and awaiting execution, this invocation is dropped. 
+            <i>The browser won’t queue up more than one instance of a specific interval handler.</i>
+          </pre>
+          <pre>
+            setTimeout(function repeatMe(){
+                /* Some long block of code... */
+                setTimeout(repeatMe, 10);
+              }, 10);
+              setInterval(() => {
+                /* Some long block of code... */
+              }, 10);
+              Sets up a time-out that reschedules itself every 10 milliseconds
+              Sets up an interval that triggers every 10 milliseconds
+               13.2.2
+              The two pieces of code may appear to be functionally equivalent, but they aren’t. 
+              Notably, the setTimeout variant of the code will always have at least a 10 ms delay after the previous callback execution 
+              (depending on the state of the event queue, it may end up being more, but never less), 
+              whereas setInterval will attempt to execute a callback every 10 ms regardless of when the last callback was executed. 
+              And, as you saw in the example from the previous section, intervals can be fired immediately one after another, regardless of the delay.
+          </pre>
+          <pre>
+                As you know, a single event can trigger the execution of multiple event handlers, where each handler can be in either capturing or bubbling mode. 
+                For this reason, the event first goes through capturing,starting from the top element and trickling down to the event target element. 
+                When the target element is reached, bubbling mode is activated, and the event bubbles from the target element all the way back to the top.
+                In our case, capturing starts from the top, window object and trickles down to the innerContainer element, 
+                with the goal of finding all elements that have an event han- dler for this click event in capturing mode. 
+                Only one element, outerContainer, is found, and its matching click handler is executed as the first event handler.
+                The event continues traveling down the capturing path, but no more event handlers with capturing are found. 
+                After the event reaches the event target element, the innerContainer element, the event moves on to the bubbling phase, 
+                where it goes from the target element all the way back to the top, executing all bubbling event han- dlers on that path.   
+                 
+                this keyword in event handlers, and why we explicitly stated that the this keyword refers to the element on which the event handler is registered, 
+                and not necessarily to the element on which the event occurs.(事件处理函数中的this指的是注册这个函数的对象，而非事件源)
+          </pre>
         </div>
-         
+        
     </body>
 </html>
