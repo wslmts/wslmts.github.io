@@ -32,6 +32,12 @@
                             </li>
                       </ol>
                   </li>
+                  <li>
+                      <pre>
+                          mysql索引遵循最左前缀匹配原则，即一个索引是根据（name,age,sex)创建的，则（name）,(name,age),(name,age,sex),(name,sex)都能使用这个索引查询到结果，
+                          (age),(age,sex)，却不能；
+                      </pre>
+                  </li>
               </ul>
         </div>
        
