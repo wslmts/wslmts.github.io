@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>calendar</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="calendar.css"/>
+        <script src="../lib/moment.js"></script>
+        <script src="../vue.js"></script>
+        
+    </head>
+    <body>
+      <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th @click="updateCalendar(-1)" class="pointer">&lt;</th>
+                    <th colspan="5">{{title}}</th>
+                    <th @click="updateCalendar(1)" class="pointer">&gt;</th>
+                </tr>
+                <tr>
+                   <th v-for="i of week">{{i}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="row of trCount">
+                    <td v-for="col of 7">{{ calendar[row-1][col-1]}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <script>
+        let vm= new Vue({
+             el:"#app",
+             data:{
+                title:moment(this.startDate).format('YYYY-MM'),
+                week:['日','一','二','三','四','五','六',],
+                startDate:new Date(),
+                trCount:6
+             },
+             computed:{
+                calendar(){
+                    return this.buildCalendar(this.startDate);
+                }
+             },
+             methods:{
+                buildCalendar(date){
+                    let title = this.title = moment(date).format('YYYY-MM');     // 查询月份
+                    let daysInMonth = moment(date).daysInMonth();   // 查询当月天数
+                    let firstDay = moment(title).startOf('month');  // 查询当月第一天
+                    let weekday = Number(moment(firstDay).format('d'));     // 查询当月第一天是周几
+                    let trCount = this.trCount = Math.ceil((weekday+daysInMonth)/7)
+                 
+                    // 计数器 < weekday 则为上个月日期; 计数器 > weekday + daysInMonth 则为下个月日期
+                    let daycount = 0;
+                    let calendar = [];
+                    for (let i = 0; i < trCount; ++i) {
+                        calendar.push([]);
+                        for (let j = 0; j < 7; ++j) {
+                            daycount ++;
+                            // 计算table表对应几号
+                            let value = daycount > weekday ? daycount - weekday : 0;
+                            value = value > daysInMonth ? 0 : value;
+                            // 日期有效插入moment日期，无效置为0
+                            value = value ? moment(title).subtract(1 - value, 'days').date() : '';
+                            calendar[i][j] = value;
+                        }
+                    }
+                    console.log(calendar)
+                    return calendar
+                },
+                updateCalendar(value){
+                    this.startDate = moment(this.title).add(value, 'months');                  
+                }
+             }
+
+         })
+    
+      </script>
+    </body>
+</html>

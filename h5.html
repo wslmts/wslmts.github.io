@@ -23,5 +23,10 @@
             document.addEventListener('fullscreenchange',fn);进入或离开全屏时触发；
             
         </div>
+        <pre>
+            <video src="xx.mp4#t=5,10"></video>
+            在资源后添加#t=a,b,表示视频从a秒开始播放，b秒结束，
+            但是实际测试，开始时间都是从0开始，设置没有生效，结束时间生效，自动停止；
+        </pre>
     </body>
 </html>

@@ -1,0 +1,125 @@
+<html>
+    <head>
+            <title>cache</title>
+            <style>
+            body{
+                margin: 10px auto;
+                width:1000px;
+            }
+            table{
+                width:900px;
+            }
+            th:nth-child(1){
+                width:100px;
+            }
+            </style>
+    </head>
+    <body>
+        <pre>
+            有了Last-Modified，为什么还要用ETag？
+  1、因为如果在一秒钟之内对一个文件进行两次更改，Last-Modified就会不正确（Last—Modified不能识别秒单位的修改）
+  2、某些服务器不能精确的得到文件的最后修改时间
+  3、一些文件也行会周期新的更改，但是他的内容并不改变（仅仅改变修改的事件），这个时候我们并不希望客户端认为文件被修改，而重新Get
+
+ETag，为什么还要用Last-Modified？
+  1、两者互补，ETag的判断的缺陷，比如一些图片等静态文件的修改
+  2、如果每次扫描内容都生成ETag比较，显然要比直接比较修改时间慢的多。
+
+
+ETag是被请求变量的实体值（文件的索引节，大小和最后修改的时间的Hash值）
+  1、ETag的值服务器端对文件的索引节，大小和最后的修改的事件进行Hash后得到的。
+
+  如果max-age和Expires同时存在，则被Cache-Control的max-age覆盖。
+Expires 的一个缺点就是，返回的到期时间是服务器端的时间，这样存在一个问题，如果客户端的时间与服务器的时间相差很大，那么误差就很大，所以在HTTP 1.1版开始，使用Cache-Control: max-age=秒替代。
+Expires =max-age +   “每次下载时的当前的request时间”
+
+
+        </pre>
+        <ol>
+            <li>
+                如果Pragma头部和Expires头部同时存在，则起作用的会是Pragma。
+                需要注意的是，响应报文中Expires所定义的缓存时间是相对服务器上的时间而言的，其定义的是资源“失效时刻”，
+                如果客户端上的时间跟服务器上的时间不一致（特别是用户修改了自己电脑的系统时间），那缓存时间可能就没啥意义了。
+            </li>
+            <li>
+                http1.1新增了 Cache-Control 来定义缓存过期时间。注意：若报文中同时出现了 Expires 和 Cache-Control，则以 Cache-Control 为准。
+                也就是说优先级从高到低分别是 Pragma -> Cache-Control -> Expires 。
+            </li>
+            <li>
+                <table>
+                    <col width="100px"><col>
+                    <col  width="400px"></col>
+                    <col  width="400px"></col>                 
+                    <tr>
+                        <th>头部</th>
+                        <th>优势和特点</th>
+                        <th>劣势和问题</th>
+                    </tr>
+                    <tr>
+                        <td width="100px">Expires</td>
+                        <td width="400px">
+                        <pre>
+                        1、HTTP 1.0 产物，可以在HTTP 1.0和1.1中使用，简单易用。
+                        2、以时刻标识失效时间。
+                        </pre>
+                        </td>
+                        <td width="400px">
+                        <pre>
+                        1、时间是由服务器发送的(UTC)，如果服务器时间和客户端时间存在不一致，可能会出现问题。
+                        2、存在版本问题，到期之前的修改客户端是不可知的。
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cache-Control</td>
+                        <td>
+                            <pre>
+                            1、HTTP 1.1 产物，以时间间隔标识失效时间，解决了Expires服务器和客户端相对时间的问题。
+                            2、比Expires多了很多选项设置。
+                            </pre>
+                        </td>
+                        <td>
+                            <pre>
+                            1、HTTP 1.1 才有的内容，不适用于HTTP 1.0 。
+                            2、存在版本问题，到期之前的修改客户端是不可知的。
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>Last-Modified</td>
+                            <td>
+                                <pre>
+                                1、不存在版本问题，每次请求都会去服务器进行校验。服务器对比最后修改时间如果相同则返回304，不同返回200以及资源内容。
+                                </pre>
+                            </td>
+                            <td>
+                                <pre>
+                                1、只要资源修改，无论内容是否发生实质性的变化，都会将该资源返回客户端。例如周期性重写，这种情况下该资源包含的数据实际上一样的。
+                                2、以时刻作为标识，无法识别一秒内进行多次修改的情况。
+                                3、某些服务器不能精确的得到文件的最后修改时间。
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ETag</td>
+                            <td>
+                                <pre>
+                                1、可以更加精确的判断资源是否被修改，可以识别一秒内多次修改的情况。
+                                2、不存在版本问题，每次请求都回去服务器进行校验。
+                                </pre>                            
+                            </td>
+                            <td>
+                                <pre>
+                                1、计算ETag值需要性能损耗。
+                                2、分布式服务器存储的情况下，计算ETag的算法如果不一样，会导致浏览器从一台服务器上获得页面内容后到另外一台服务器上进行验证时发现ETag不匹配的情况。
+                                </pre>                                
+                            </td>
+                        </tr>
+                </table>
+            </li>
+        </ol>
+        <p>
+            <a target="_blank" href="http://imweb.io/topic/5795dcb6fb312541492eda8c">cache article></a>
+        </p>
+    </body>
+</html>

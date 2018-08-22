@@ -1,0 +1,12 @@
+table{
+    width: 100%;
+    border:1px #ccc solid;
+    border-collapse:collapse;
+    text-align: center;
+}
+td,th{
+    border:1px #ccc solid;
+}
+.pointer{
+    cursor: pointer;
+}
