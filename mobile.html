@@ -2,22 +2,17 @@
     <head></head>
     <link type="text/css" rel="stylesheet" href="./css/main.css"/>
     <script src="vue.js"></script>
-    <style>
-     img{
-         max-width:100%;
-     }
-    </style>
     <body>
         <div id="app">
             <ul>
-                <li v-for="i in num"><img :src="imgs[i]"/></li>
+                <li v-for="i in num"><img :src="imgs[i-1]"/></li>
               </ul>
         </div>
         <script>
          new Vue({
              el:"#app",      
              data:{
-                 num:19
+                 num:20
              },
              computed:{
                  imgs(){

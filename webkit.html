@@ -1,0 +1,49 @@
+<html>
+    <head></head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+    <script src="vue.js"></script>
+    <body>
+        <div id="app">
+            
+            <ul>
+                <li>
+                    <h3>dns prefetch</h3>
+                    <pre>
+                        dns预取技术主要是利用现有dns机制，提前解析可能的网络连接。具体说，当用户正浏览当前网页是、时，chromium提取网页中的超链接，将域名抽取出来，利用较少的cpu和网络带宽解析这些域名。
+                        dns预取技术不仅应用于网页中的超链接，当用户在地址栏中输入地址后，候选项同输入的地址很匹配的时候，在用户敲下回车键前，浏览器已经开始解析域名了。
+                        开发者可以显示指定需要预取得域名，link rel="dns-prefetch" href="http://hostname"
+                    </pre>
+                </li>
+                <li>
+                    <h3>event</h3>
+                    <pre>
+                        当渲染引擎接收到一个事件时，它会通过HitTest(webkit中的一种检查触发事件在哪个区域的算法)检查哪个元素是直接的事件目标。
+                        基于webkit的浏览器事件处理过程，首先是做HitTest，查找事件发生处的元素，检查改元素有无监听者。如果网页的相关节点注册了事件的监听者，
+                        则浏览器会把事件派发给webkit内核来处理。同时，浏览器也可能需要理解和处理这样的事件，这是因为，有些事件浏览器必须响应从而对网页做默认处理。
+                    </pre>
+                </li>
+                <li>
+                    webkit中，资源最初的表示就是字节流，这些字节流可以是网络传输来的，也可以是本地文件；
+                </li>
+                <li v-for="i in num"><img :src="imgs[i-1]"/></li>
+              </ul>
+        </div>
+        <script>
+         new Vue({
+             el:"#app",      
+             data:{
+                 num:25
+             },
+             computed:{
+                 imgs(){
+                     let a=[]
+                     for(let i=1;i<=this.num;i++){
+                        a.push("img/webkit"+i+".png")
+                     } 
+                     return a
+                 }
+             }
+         })
+        </script>
+    </body>
+</html>
