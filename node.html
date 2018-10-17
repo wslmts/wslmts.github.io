@@ -4,7 +4,8 @@
     <script src="vue.js"></script>
     <body>
         <div id="app">
-            <ul>
+            <ul> 
+                <li>getElementsByClassName('cls1 cls2'),cls1,cls2的顺序可以和html里属性的顺序可以不一致，只要包含就会在结果集合里</li>
                 <li v-for="i in num"><img :src="getImg(i)"/></li>
               </ul>
         </div>
@@ -12,7 +13,7 @@
          new Vue({
              el:"#app",      
              data:{
-                 num:6
+                 num:7
              },
              methods:{
                  getImg(i){

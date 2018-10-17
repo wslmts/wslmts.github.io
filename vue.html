@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+    </head>   
+    <body>
+        <div id="app">
+            <h2>VUE总结</h2>
+            <ol>           
+                <li>子组件中如果有在mounted中加载的值需要在父组件方法中取得，这个方法一定要在父组件的created中调用
+                    <img src="img/qiantaozujian.png"/>
+                </li>
+                <li><pre>
+                    initLifecycle(vm)
+                    initEvents(vm)
+                    initRender(vm)
+                    callHook(vm, 'beforeCreate')
+                    initInjections(vm) // resolve injections before data/props
+                    initState(vm) //initState 的作用是初始化 props、data、methods、watch、computed 等属性
+                    initProvide(vm) // resolve provide after data/props
+                    callHook(vm, 'created')
+
+                </pre>  
+                </li>
+            </ol>
+            
+        </div>     
+    </body>
+</html>

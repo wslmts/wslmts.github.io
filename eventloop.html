@@ -46,7 +46,7 @@
                 使用setInterval时，某些间隔会被跳过；
                 可能多个定时器会连续执行；
           </pre>
-          <h5>macrotask和microtask，在ECMAScript中，microtask称为</h5>
+          <h5>macrotask和microtask</h5>
           <ol>
             <li>macrotask（又称之为宏任务），可以理解是每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）</li>
             <li>每一个task会从头到尾将这个任务执行完毕，不会执行其它</li>                    
@@ -60,10 +60,10 @@
           <pre>
                 分别很么样的场景会形成macrotask和microtask呢？
 
-                macrotask：主代码块，setTimeout，setInterval等（可以看到，事件队列中的每一个事件都是一个macrotask）
+                macrotask：主代码块，setTimeout，setInterval,setImmediate, requestAnimationFrame, I/O, UI rendering等（可以看到，事件队列中的每一个事件都是一个macrotask）
                 
-                microtask：Promise，process.nextTick等
-                
+                microtask：Promise，process.nextTick, Object.observe, MutationObserver
+                           
                 补充：在node环境下，process.nextTick的优先级高于Promise，也就是可以简单理解为：在宏任务结束后会先执行微任务队列中的nextTickQueue部分，然后才会执行微任务中的Promise部分。
                 
                 另外，setImmediate则是规定：在下一次Event Loop（宏任务）时触发（所以它是属于优先级较高的宏任务），（Node.js文档中称，setImmediate指定的回调函数，总是排在setTimeout前面），所以setImmediate如果嵌套的话，是需要经过多个Loop才能完成的，而不会像process.nextTick一样没完没了。

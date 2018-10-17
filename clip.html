@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <textarea id="txt">123</textarea>
+        <textarea id="txt1"></textarea>
+        <script>
+            let txt =document.querySelector('#txt')
+            let txt1 =document.querySelector('#txt1')
+            txt.oncut=function(a){
+                console.log(111,a)
+            }
+            txt1.onpaste=function(b){
+                console.log(222,b)
+            }
+        </script>
+    </body>
+</html>

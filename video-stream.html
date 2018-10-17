@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>视频播放技术</title>
+    </head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+    
+    <body>
+        <div id="app">
+            <pre>Youtube 采用的是流式的视频容器 webm，而 mp4 是非流式的。简单说就是流式的视频数据支持分段独立播放，非流式的不可以。
+                换句话说一个10M的视频文件，流式的视频可以把0~1M的数据请求回来单独播放，但是非流式的不可以。
+                1. 来请求 mp4 视频数据，这样可以结合视频 Range 服务，做到精确加载。 
+                2. 编写解析器将加载回来的部分 mp4 视频数据进行解复用 
+                3. 将解复用的视频数据转成 fmp4 格式并传递给 MediaSource 
+                4. 使用 video 进行解码完成播放
+                https://github.com/videojs
+            </pre>
+        </div>
+        <script>
+         
+        </script>
+    </body>
+</html>

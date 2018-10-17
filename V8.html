@@ -1,0 +1,42 @@
+<html>
+    <head></head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+   
+    <body>
+        <div id="app">
+            <pre>
+                    V8 used to have two compilers
+                    Before version 5.9 of V8 came out (released earlier this year), the engine used two compilers:
+                    
+                    full-codegen — a simple and very fast compiler that produced simple and relatively slow machine code.
+                    Crankshaft — a more complex (Just-In-Time) optimizing compiler that produced highly-optimized code.
+            </pre>
+            The V8 Engine also uses several threads internally:
+            <ol>
+                <li>The main thread does what you would expect: fetch your code, compile it and then execute it</li>    
+                <li> There’s also a separate thread for compiling, 
+                    so that the main thread can keep executing while the former is optimizing the code</li>
+                <li>A Profiler thread that will tell the runtime on which methods we spend a lot of time so that Crankshaft can optimize them</li>    
+                <li>A few threads to handle Garbage Collector sweeps</li>                           
+            </ol>
+            <pre>
+                    When first executing the JavaScript code, V8 leverages full-codegen which directly translates the parsed JavaScript 
+                    into machine code without any transformation. 
+                    This allows it to start executing machine code very fast. 
+                    Note that V8 does not use intermediate bytecode representation this way removing the need for an interpreter.
+
+                    When your code has run for some time, the profiler thread has gathered enough data to 
+                    tell which method should be optimized.
+                    
+                    Next, Crankshaft optimizations begin in another thread. 
+                    It translates the JavaScript abstract syntax tree to a high-level static single-assignment (SSA) 
+                    representation called Hydrogen and tries to optimize that Hydrogen graph. 
+                    Most optimizations are done at this level.
+            </pre>
+        </div>
+        <a href="https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e"
+        target="_blank">reference</a>
+        <a href="https://medium.com/@jitubutwal144/javascript-how-is-callback-execution-strategy-for-promises-different-than-dom-events-callback-73c0e9e203b1"
+        target="_blank">microtask/macrotask</a>
+    </body>
+</html>
