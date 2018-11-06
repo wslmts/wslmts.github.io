@@ -33,6 +33,110 @@
                     representation called Hydrogen and tries to optimize that Hydrogen graph. 
                     Most optimizations are done at this level.
             </pre>
+            <pre>
+                event loop will pick up a new task from a Task queue only when call stack is empty and 
+                there is nothing to execute in a micro task queue. Let’s assume, there are 3 tasks in Task queue, T1, T2 and T3. 
+                Task T1 has one task(say — setTimeout(T4, 0)) and two micro tasks(say promises — M1, M2). 
+                When task T1 is executed in the call stack, it will encounter setTimeout(…) and 
+                delegates it to runtime to handle its callback. Runtime will queue T4 in aTask queue. 
+                When engine encounters promise 1, it will queue its callback (M1) to micro task queue. 
+                Likewise, when it encounters another promise 2 object, it will queue it in a micro task queue. 
+                Now call stack becomes clear, so before picking up task T2 from the Task queue, 
+                event loop will execute all the callbacks (M1, M2) queued in micro task queue. 
+                Once micro tasks are executed in a call stack and stack is cleared, it is ready for Task T2.
+            </pre>
+            <pre>
+                eventLoop = {
+                    taskQueues: {
+                        events: [], // UI events from native GUI framework
+                        parser: [], // HTML parser
+                        callbacks: [], // setTimeout, requestIdleTask
+                        resources: [], // image loading
+                        domManipulation[]
+                    },
+                
+                    microtaskQueue: [
+                    ],
+                
+                    nextTask: function() {
+                        // Spec says:
+                        // "Select the oldest task on one of the event loop's task   queues"
+                        // Which gives browser implementers lots of freedom
+                        // Queues can have different priorities, etc.
+                        for (let q of taskQueues)
+                            if (q.length > 0)
+                                return q.shift();
+                        return null;
+                    },
+                
+                    executeMicrotasks: function() {
+                        if (scriptExecuting)
+                            return;
+                        let microtasks = this.microtaskQueue;
+                        this.microtaskQueue = [];
+                        for (let t of microtasks)
+                            t.execute();
+                    },
+                
+                    needsRendering: function() {
+                        return vSyncTime() && (needsDomRerender() || hasEventLoopEventsToDispatch());
+                    },
+                
+                    render: function() {
+                        dispatchPendingUIEvents();
+                        resizeSteps();
+                        scrollSteps();
+                        mediaQuerySteps();
+                        cssAnimationSteps();
+                        fullscreenRenderingSteps();
+                
+                        animationFrameCallbackSteps();
+                
+                
+                        while (resizeObserverSteps()) {
+                            updateStyle();
+                            updateLayout();
+                        }
+                        intersectionObserverObserves();
+                        paint();
+                    }
+                }
+                
+                while(true) {
+                    task = eventLoop.nextTask();
+                    if (task) {
+                        task.execute();
+                    }
+                    eventLoop.executeMicrotasks();
+                    if (eventLoop.needsRendering())
+                        eventLoop.render();
+                }
+            </pre>
+
+            <pre>
+                Callbacks queued in task queue are executed in first-come-first-service order and browser may render between them (Eg. DOM manipulation, changing html styles etc).
+
+                Callbacks queued in Micro task queue are executed in first-come-first-service order, but at the end of every task from the task queue (only if call stack is empty). As mentioned above in the event loop’s pseudo code, Micro tasks are processed at the end of each task.
+// Popular JS engines(Eg. google chrome's V8 engine, Mozilla's SpiderMonkey etc) 
+// implements event loop using C++, which means code snippet below is executed synchronously
+while(true) {
+    // Each iteration of this loop is called an event loop 'tick'
+    task = eventLoop.nextTask();
+    
+    if (task) {
+     // First: A task from the Task queue is executed
+        task.execute();
+    }
+    
+    // Second: All the tasks in the Micro task queue are executed
+    eventLoop.executeMicrotasks();
+    
+    // Third: It will check if there is someting to render, eg. DOM changes, request animation frame etc
+    // and renders in browser if required
+    if (eventLoop.needsRendering())
+        eventLoop.render();
+}
+            </pre>
         </div>
         <a href="https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e"
         target="_blank">reference</a>
