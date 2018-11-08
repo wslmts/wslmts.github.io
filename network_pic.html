@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+    <style>
+      li img{
+          vertical-align: top;
+      }
+     
+    </style>
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <div id="app"> 
+        <ol>
+            <li v-for="i of 4">
+                <img :src="getImg(i)"/>
+            </li>
+        </ol>
+    </div>
+<script>
+    new Vue({
+        el:"#app",      
+        methods:{
+            getImg(i){
+                return "img/p"+i+".jpg"
+            }
+        }
+    })
+</script>
+</body>
+</html>
