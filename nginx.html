@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+    <style>
+      
+    </style>
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <div id="app"> 
+      <ol>
+        <li>
+          <pre>
+            nginx has one master process and several worker processes. 
+            master进程用于读取且评估配置以及维护worker进程，worker进程执行实际的请求；
+            nginx使用基于事件的模型和依赖于操作系统的机制来有效的在worker进程分发请求；
+            worker进程的数目在配置文件中定义，可以针对给定配置进行修复，也可以自动调整为可用CPU内核数 
+             
+          </pre>   
+        </li>
+        <li>
+          <pre>
+            nginx -s signal
+            Where signal may be one of the following:       
+            stop — fast shutdown
+            quit — graceful shutdown(This command should be executed under the same user that started nginx)
+            reload — reloading the configuration file(配置修改必须重启才生效)
+            reopen — reopening the log files
+             
+            master收到重启信息后，检查新配置文件应用新的配置。如果成功,master进程开始新的worker，并且给老的worker发送信息结束服务。老的worker收到worker信息以后，停止接收新的链接，且继续服务当前请求直到请求结束，老的worker才会退出。
+          </pre>
+        </li>
+        <li>
+          <pre>
+            nginx主要用于1）提供静态内容；2）代理服务；3）FastCGI 代理
+            通常，配置文件根据监听的端口和server 那么分成几个server块，一旦决定好使用哪个server后，就会测试请求头中的uri，用server块中的location指令来处理；           
+          </pre>
+        </li>
+        <li>       
+          <pre>
+            <code>
+                location / {
+                    root /data/www;
+                }
+            </code>
+              这里对于匹配的请求，uri会加入root指令指定路径；即/data/www，形成请求本地文件系统的路径；如果有多个location的匹配块，选择前缀最长的一个。
+              最短的‘/’这个匹配,会在所有匹配都不生效的时候，匹配。
+            <code>
+                server {
+                  listen 8080;
+                  root /data/up1;
+              
+                  location / {
+                    proxy_pass http://localhost:8080;
+                  }
+                  location ~ \.(gif|jpg|png)$ {
+                    root /data/images;
+                  }
+              }
+              服务监听8080端口，把所有的请求映射到本地的/data/up1文件下。注意，root目录在server上下文中；当location指令中不包含root指令时，会使用server下的root指令；
+              <span class="red">当nginx选择一个location来服务请求时，会首先检查匹配的前缀，记下最长的匹配，然后检查正则表达式，会优先使用正则匹配的location(正则匹配后不再继续往下匹配，即正则一旦匹配，就返回)，否则会使用前面记下的最长路径匹配。</span>
+               
+              上面代码中会过滤.gif, .jpg, or .png结尾的请求，映射到本地的/data/images目录；其余的请求代理到proxy_pass配置的服务中处理；ß                         
+            </code>   
+          </pre>
+        </li>
+        <li>
+          <pre>作为FastCGI代理使用时，将proxy_pass指令替换为fastcgi_pass；fastcgi_param 用于传递参数；
+          </pre>
+        </li>
+        <li><pre>
+          <code>
+              server {
+                listen      80;
+                server_name example.org www.example.org;
+                ...
+            }      
+            server {
+                listen      80 default_server;
+                server_name example.net www.example.net;
+                ...
+            }           
+            server {
+                listen      80;
+                server_name example.com www.example.com;
+                ...
+            }
+              
+          </code>
+          这个配置中，nginx只会测试请求头的host字段来觉得使用哪个server匹配的路由；如果host值和server_name都不匹配，或者请求不包含host字段，nginx会使用请求的端口号对应的默认的路由；如果没有指定default_server;默认是第一个；显示指定如上例，在linste指令后面；
+        </pre>
+        </li>
+        <li>
+          <pre>
+            如果请求没有host字段不允许请求,可以如下设置，             
+              server {
+                  listen      80;
+                  server_name "";
+                  return      444;
+              }
+              server name设为' ’；返回非标准码444关闭连接；            
+            </pre>
+        </li>
+        <li>
+          <h3> Mixed name-based and IP-based virtual servers</h3>
+          <pre>
+              server {
+                listen      192.168.1.1:80;
+                server_name example.org www.example.org;
+                ...
+            }
+            
+            server {
+                listen      192.168.1.1:80 [default_server];
+                server_name example.net www.example.net;
+                ...
+            }
+            
+            server {
+                listen      192.168.1.2:80 [default_server];
+                server_name example.com www.example.com;
+                ...
+            }
+            上面的配置，nginx会根据listen指令首先测试请求地址的ip和port；然后测试host头信息；且这个host匹配servername以后还要匹配ip和port;如果server name没有找到，匹配默认server;
+            默认server是监听端口的属性，端口和ip不同的server有对应默认的server;
+ 
+          </pre>
+        </li>
+        <li>
+          <h3>Server names</h3>
+          <pre>
+              server {
+                listen       80;
+                server_name  example.org  www.example.org;
+                ...
+            }
+            
+            server {
+                listen       80;
+                server_name  *.example.org;
+                ...
+            }
+            
+            server {
+                listen       80;
+                server_name  mail.*;
+                ...
+            }
+            
+            server {
+                listen       80;
+                server_name  ~^(?<user>.+)\.example\.net$;
+                location / {
+                      root   /sites/$2;
+                } 
+            }
+            当通过name查找虚拟server时，如果多个名字都能匹配，例如通配符和正则都匹配，会按照下面的顺序优先匹配；
+            1）exact name:严格对应的名字
+            2）longest wildcard name starting with an asterisk, e.g. “*.example.org”；以*开头的最长的通配符名称；
+            3）longest wildcard name ending with an asterisk, e.g. “mail.*” 以*结尾的最长的通配匹配；
+            4）first matching regular expression (in order of appearance in a configuration file)；按照配置文件顺序中最先匹配的正则表达式；
+            <span class="red">
+              1）使用通配符注意，只能在名字的开头或结尾使用，且只能有挨着一个.。“www.*.example.org” and “w*.example.org”都是不合理的；<br/>
+              2) 使用正则表达式， server_name 必须以~ 开头，否则会被当做严格的名字；域名中的.要加\转义； （~^(?<user>.+)\.example\.net$;）
+              3） 正则捕获的子表达可以在包含内容中使用；（上面最后一个server）
+            </span>
+          </pre>
+        </li>
+        <li>
+          <pre>
+            严格匹配的名字，*开头的通配符匹配，*结尾的通配符匹配会存储在监听端口对应的3张哈希表里；哈希表的大小会在配置阶段优化，以便使用最少的cpu缓存；
+            The exact names 会优先查找，如果查找不到，然后查找*开头的通配符匹配的哈希表，如果还没找到，会查找*结尾的通配符匹配的哈希表
+            查找通配符名字会比准确的名字慢，因为名字会按照域名区分，注意 “.example.org”是存储在通配符的哈希表里而不是准确名称表里；
+              
+          </pre>
+        </li>
+      </ol>
+    </div>
+<script>
+    new Vue({
+        el:"#app",      
+        methods:{
+            getImg(i){
+                return "img/p"+i+".jpg"
+            }
+        }
+    })
+</script>
+</body>
+</html>
