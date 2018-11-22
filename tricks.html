@@ -1,6 +1,7 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="./css/main.css"/> 
+        <script src="vue.js"></script>
      </head>
     <body>
         <div id="app">     
@@ -39,8 +40,21 @@
                           (age),(age,sex)，却不能；
                       </pre>
                   </li>
+                  <li v-for="i in num"><img :src="getImg(i)"/></li>
               </ul>
         </div>
-       
+        <script>
+            new Vue({
+                el:"#app",      
+                data:{
+                    num:3
+                },
+                methods:{
+                    getImg(i){
+                        return "img/trick"+i+".jpg"
+                    }
+                }
+            })
+           </script> 
     </body>
 </html>
