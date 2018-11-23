@@ -177,7 +177,22 @@
                     <img src="img/css2.png"/>
                 </li>
             </ol>
+            <ul>
+                <li v-for="i in num"><img :src="getImg(i)"/></li>
+            </ul>
         </div>
-        
+        <script>
+            new Vue({
+                el:"#app",      
+                data:{
+                    num:5
+                },
+                methods:{
+                    getImg(i){
+                        return "img/font"+i+".jpg"
+                    }
+                }
+            })
+           </script>    
     </body>
 </html>
