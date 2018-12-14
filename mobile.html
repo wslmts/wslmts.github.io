@@ -4,6 +4,20 @@
     <script src="vue.js"></script>
     <body>
         <div id="app">
+            <ol>
+                <li>webview加载显示html页面时，组件本身提供了一些系统默认交互行为，如长按文本区域出现放大镜和内容选择；长按链接呼出菜单弹窗
+                  <pre>
+                   禁止放大镜和内容选择：
+                   *：not(input,textarea){
+                       user-select:none
+                   }
+                   禁止链接呼出菜单
+                   a{
+                       touch-callout:none;
+                   }
+                  </pre>
+                </li>
+            </ol>
             <ul>
                 <li v-for="i in num"><img :src="imgs[i-1]"/></li>
               </ul>
