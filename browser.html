@@ -1,6 +1,7 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="./css/main.css"/>
+        <script src="vue.js"></script>
     </head>   
     <body>
         <div id="app">
@@ -10,7 +11,15 @@
                 <li>线程是cpu调度的最小单位（线程是建立在进程的基础上的一次程序运行单位，一个进程中可以有多个线程）</li>
             </ol>
             <ol>
-                <li>浏览器是多进程的</li>
+                <li>浏览器是多进程的,js是单进程的</li>
+                <li>函数参数优先级由高到低：this-->局部变量-->形参--> arguments-->函数名;
+                    <ul>
+                        <li v-for="i in 4"><img :src="getImg('f',i)"/></li>
+                    </ul> 
+                </li>
+                <li>this指代的对象是由this所在的执行作用域决定的，不是定义作用域；可以把this看做执行作用域的一个属性，这个属性始终引用该上下文环境的对象；
+                    函数的引用和调用都无法改变函数的定义作用域，但是引用函数可以改变函数的执行作用域；函数调用却不能改变执行作用域。
+                </li>
                 <li>浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu、内存）</li>                
                 <li>简单点理解，每打开一个Tab页，就相当于创建了一个独立的浏览器进程。</li>
                 <li>window.open是异步执行的</li>
@@ -29,7 +38,6 @@
                     var a=[1,2,3]
                     1)b=a.concat()
                     2)b=a.slice()
-
                 </pre>
                 </li>
                 <li>
@@ -43,6 +51,38 @@
                         <li>修改的字符串副本与原值没有联系，如果不把修改的值赋值给原值变量，则不会对原值产生影响；</li>
                         <li>当把修改的字符串赋值给原值变量时，会重新建立一个新的引用，并把修改值存储到堆区新的位置</li>
                         <li>原值引用的区域，如果还被其他变量引用，则继续保留，否则会被垃圾回收程序回收；</li>
+                        <li>
+                            var n=1 ;   String(++n,n++,++n,n++)  //2，n=5;
+                            多个参数时，会计算，但是仅负责使用第一个参数执行函数；
+                        </li>
+                        <li>如果FORM,IMAGE,APPLET对象对应的html标签设置了name属性，可以直接使用document.name引用这些对象；
+                            浏览器在解析文档时会自动把这些元素的name属性定义为document对象的属性名，仅上述3种对象可以。
+                        </li>
+                        <li>load本属于window对象的事件，但是在html文档中，body元素无法代表window对象，为什么body可以执行onload事件函数；
+                            这是因为早期js约定，所有的事件类型都可以成为页面元素的事件属性，对于无法对应的事件，则把他们绑定到body元素上，代表页面事件类型，
+                            然后在js解释时，再把它传递给window对象。如果同时使用html中body的onload属性和window.onload，也不会执行2次，
+                            且window.onload会覆盖html中定义的onload属性。但是如果在script中定义document.body.onload,
+                            则由window.onload，document.body.onload在文档中的顺序决定，执行最后定义的，即也只执行一次。
+                        </li>
+                        <li>window.onerror事件处理函数的返回值决定浏览器是否显示出错信息；如果返回false，则ie会弹出错误提示对话框，
+                            chrome在控制台输出错误信息；如果返回true，则不会在控制台显示错误信息，也不会弹出对话框。</li>
+                        <li>在button上按回车键，会触发click事件;
+                            <img src="img/keycode.jpg"/>
+                        </li>
+                        <li>
+                            <h3>cookie的domain</h3>
+                            <pre>
+                                1.新的规范中，显式设置 domain 时，如果 value 最前面带点，则浏览器处理时会将这个点去掉，
+                                所以最后浏览器存的就是没有点的（注意：但目前大多数浏览器并未全部这么实现）
+                                2.前面带点‘.’和不带点‘.’有啥区别：
+                                带点：任何 subdomain 都可以访问，包括父 domain
+                                不带点：只有完全一样的域名才能访问，subdomain 不能（但在 IE 下比较特殊，它支持 subdomain 访问）
+                            </pre>
+                            <pre>
+                                    如果想在客户端即网页中通过 js 去设置secure类型的 cookie，必须保证网页是https协议的。
+                                    在http协议的网页中是无法设置secure类型cookie的。
+                            </pre>
+                        </li>
                     </ol>
                 </li>
                 <li>
@@ -230,5 +270,15 @@
             
             <footer class="ps" style="margin-top:100px;">页面内容来自互联网，如有侵权，告知删除</footer>   
         </div>     
+        <script>
+            new Vue({
+                el:"#app",      
+                methods:{
+                    getImg(name,i){
+                        return "img/"+name+i+".jpg"
+                    }
+                }
+            })
+        </script>
     </body>
 </html>

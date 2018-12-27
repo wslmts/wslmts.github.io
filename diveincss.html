@@ -12,6 +12,18 @@
                 </li>
                 <li><strong>媒体查询中的not 是针对整个查询条件，而非not后的第一个条件</strong></li>
                 <li>
+                    background-size的关键字cover，contain都是用来等比缩放背景图像的，
+                    contain缩放后，保证宽高都包含在元素内不被裁掉；cover:背景图缩放宽高，从而覆盖整个元素；
+                </li>
+                <li><pre>
+                    边框放置图像时，关键字推荐使用条件：
+                    stretch:当图像特别宽大或者光滑，推荐使用拉伸适应宽度；
+                    repaeat:边框图像有纹理，噪点；
+                    round:图像即不能铺满，又需要边缘重复；
+                    space:和round很像，只有整个切片在边框内显示时才用。浏览器会在平铺的图像间加入空白，而不是调整边框图像的大小；
+                </pre>
+                </li>
+                <li>
                     <h3>水平居中新解</h3>
                     <pre>
                             position: absolute;                       
