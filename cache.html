@@ -1,6 +1,7 @@
 <html>
     <head>
             <title>cache</title>
+            <link type="text/css" rel="stylesheet" href="./css/main.css"/>
             <style>
             body{
                 margin: 10px auto;
@@ -13,8 +14,13 @@
                 width:100px;
             }
             </style>
+            <script src="vue.js"></script>
     </head>
     <body>
+        <div id="app">
+            <ul>
+                    <li v-for="i in 5"><img :src="getImg('cache',i)"/></li>
+                </ul>
         <pre>
             有了Last-Modified，为什么还要用ETag？
   1、因为如果在一秒钟之内对一个文件进行两次更改，Last-Modified就会不正确（Last—Modified不能识别秒单位的修改）
@@ -121,5 +127,16 @@ Expires =max-age +   “每次下载时的当前的request时间”
         <p>
             <a target="_blank" href="http://imweb.io/topic/5795dcb6fb312541492eda8c">cache article></a>
         </p>
+    </div>
+        <script>
+                new Vue({
+                    el:"#app",      
+                    methods:{
+                        getImg(name,i){
+                            return "img/"+name+i+".jpg"
+                        }
+                    }
+                })
+            </script>
     </body>
 </html>

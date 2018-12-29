@@ -47,9 +47,99 @@
                 </pre>
             </li>
         </ol>
-          
-       
-         
+          <table border="1" border-collapse="collapse">
+              <tr>
+                <th>子命令分类</th>
+                <th>子命令</th>
+                <th>补充</th>
+              </tr>
+              <tr>
+                  <td>docker环境信息</td>
+                  <td colspan="2">info,version</td>            
+              </tr>
+              <tr>
+                <td>容器生命周期管理</td>
+                <td>create,exec,kill,pause,restart,rm,run,start,stop,unpause</td>
+                <td>docker run -p:用于将容器的端口暴露给宿主机的端口，格式：hostport:containerport;这样可以让外部机器通过宿主机暴露的端口访问容器内的应用；</td>
+            </tr>
+            <tr>
+                <td>镜像仓库命令</td>
+                <td colspan="2">login,logout,pull,push,search</td>
+            </tr>
+            <tr>
+                <td>镜像管理</td>
+                <td colspan="2">build,images,import,load,rmi,save,tag,commit</td>
+            </tr>
+            <tr>
+                <td>容器运维操作</td>
+                <td>attach,export,inspect,port,ps,rename,stats,top,wait,cp,diff,update</td>
+                <td>容器restart后，会有一个会话在container中等待，attach可以恢复stop之前的会话；
+                    top,inspect 查看容器运行情况；
+                </td>
+            </tr>
+            <tr>
+                <td>容器资源管理</td>
+                <td colspan="2">volumn,network</td>
+            </tr>
+            <tr>
+                <td>容器日志信息</td>
+                <td colspan="2">events,history,logs</td>
+            </tr>
+          </table>
+         <img src="img/docker1.jpg"/>
+         <table border="1" border-collapse="collapse">
+            <tr>
+              <th>dockerfile命令</th>
+              <th>说明</th>
+            
+            </tr>
+            <tr>
+                <td>CMD</td>
+                <td>CMD指定容器启动以后好运行的命令；和RUN类似，但是RUN是在容器构建的时候运行；
+                    如果在命令行中docker run 后添加命令，则会覆盖dockerfile中CMD命令
+                </td>            
+            </tr>
+            <tr>
+              <td>ENTRYPOINT</td>
+              <td>和CMD命令类似，但是不会被覆盖，docker run中指定的命令会作为ENTRYPOINT定义的命令的参数</td>         
+          </tr>
+          <tr>
+              <td>WORKDIR</td>
+              <td>设置工作目录，可以在命令行中用 -w 目录名称覆盖</td>
+          </tr>
+          <tr>
+            <td>ENV</td>
+            <td>指定image的构建环境，可以在命令行中用 -e 指定</td>
+          </tr>
+          <tr>
+            <td>USER</td>
+            <td>指定image作为一个用户运行，可以在命令行中用 -u 指定</td>
+          </tr>
+          <tr>
+            <td>VOLUME</td>
+            <td>
+                添加一些内容到image，不用commit，且在容器间共享数据；
+                • Volumes can be shared and reused between containers.
+                • A container doesn't have to be running to share its volumes.
+                • Changes to a volume are made directly.
+                • Changes to a volume will not be included when you update an image. • Volumes persist until no containers use them.</td>
+          </tr>
+          <tr>
+            <td>ADD</td>
+            <td>从构建环境中添加文件or目录到image里；添加文件时，根据目标路径的结尾字符决定源文件类型；如果目标以/结尾，则认为源是目录，否则是文件；</td>
+            </tr>
+            <tr>
+                <td>COPY</td>
+                <td>和ADD类似，不同点是copy纯粹在构建上下文中复制本地文件；源文件必须是在构建上下文环境中存在，外部的是获取不到的；
+                    目标路径必须是容器内的绝对路径
+                </td>
+            </tr>
+        </tr>
+        <tr>
+            <td>ONBUILD</td>
+            <td> 为image添加触发器</td>
+        </tr>
+        </table>
         </div>
          
     </body>

@@ -31,3 +31,6 @@ img{
     width: 660px;
     max-width:100%;
 }
+table{
+    border-collapse: collapse;
+}
