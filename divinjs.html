@@ -66,24 +66,12 @@
                 如果是普通变量，那么形参在接收值之前，系统会给形参分配新的内存单元，形参的变化与实参无关，这是传值；
                 如果传递的是数组名或者引用地址，则传递的是地址值，则形参实参共享内存单元，这是传址。
               </li>
+              
          </ol>
+         <p>
+          <img src="img/buffer.jpg"/>
+         </p>
         </div>  
-        <script>
-            new Vue({
-                el:"#app",      
-                data:{
-                    num:29
-                },
-                computed:{
-                    imgs(){
-                        let a=[]
-                        for(let i=1;i<=this.num;i++){
-                           a.push("img/webkit"+i+".png")
-                        } 
-                        return a
-                    }
-                }
-            })
-           </script>     
+         
     </body>
 </html>

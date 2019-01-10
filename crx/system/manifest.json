@@ -1,0 +1,14 @@
+{
+  "manifest_version":2,
+  "version":"1.0",
+  "name":"系统信息",
+  "description":"系统信息",
+  "permissions": [
+    "system.cpu",
+    "system.memory",
+    "system.storage" 
+  ],
+  "background":{
+    "scripts":["background.js"]
+  }
+}

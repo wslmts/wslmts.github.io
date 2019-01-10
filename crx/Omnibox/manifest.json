@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "omnibox",
+    "version": "1.0",
+    "description": "omnibox",
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "icons": {
+        "16": "images/icon16.png"
+    },
+    "omnibox": {
+        "keyword": "omnibox"
+    },
+    "permissions": [
+        "*://*/*"
+    ]
+}

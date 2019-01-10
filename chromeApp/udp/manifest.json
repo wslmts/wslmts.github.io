@@ -1,0 +1,22 @@
+{
+  "manifest_version":2,
+  "version":"1.0",
+  "name":"upd demo",
+  "description": "A local network chating application.",
+  "icons": {
+      "128": "lm.png"
+  },
+  "app":{
+    "background":{
+      "scripts":["background.js","udp.js"]
+    }
+  },
+  
+  "sockets":{
+    "udp":{
+      "send":"224.0.1.100",
+      "bind": ":*",
+      "multicastMembership": ""
+    }
+  }
+}

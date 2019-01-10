@@ -1,0 +1,64 @@
+<html>
+    <head>
+       
+     </head>
+     <style>
+      .shape{
+          margin:10px;
+          display: inline-block;
+          border:50px solid #ff0;
+          border-left-color: #333;
+          border-right-color: #666;
+          border-bottom-color: #000;
+          border-top-color: #ccc;
+       }
+      .shape2{
+        border-left-color: transparent;
+        border-right-color: transparent;
+      }
+      .shape3{      
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-top:none;
+      }
+      .shape4{
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-top:none;
+        border-bottom-width: 100px;
+      }
+      .chat{
+         width:300px;
+         height:80px;
+         border: 1px solid #ccc;
+         position: relative;
+         filter:drop-shadow(0 0 2px #999);
+         background-color: #fff;
+      }
+      .chat::before{
+        content: "";
+        position: absolute;
+        left:-10px;
+        top:34px;
+        border-top:6px solid transparent;
+        border-bottom:6px solid transparent;
+        border-right:10px solid #ccc;
+      }
+      .chat::after{
+        content: "";
+        position: absolute;
+        left:-8px;
+        top:34px;
+        border-top:6px solid transparent;
+        border-bottom:6px solid transparent;
+        border-right:10px solid #fff;
+      }
+     </style>
+    <body>        
+        <div class="shape shape1"></div>  
+        <div class="shape shape2"></div>   
+        <div class="shape shape3"></div> 
+        <div class="shape shape4"></div> 
+        <div class="chat">hi</div>           
+    </body>
+</html>
