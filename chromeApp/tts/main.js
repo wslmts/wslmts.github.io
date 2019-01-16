@@ -16,3 +16,7 @@ pause.addEventListener('click', function(e) {
 resume.addEventListener('click', function(e) {
   chrome.tts.resume();
 });
+var container=document.getElementById('container') 
+chrome.tts.getVoices(function(voices){
+  container.innerText=voices
+});
