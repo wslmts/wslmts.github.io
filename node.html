@@ -4,10 +4,91 @@
     <script src="vue.js"></script>
     <body>
         <div id="app">
+            <pre>
+                npm 脚本的原理非常简单。每当执行npm run，就会自动新建一个 Shell，在这个 Shell 里面执行指定的脚本命令。
+                因此，只要是 Shell（一般是 Bash）可以运行的命令，就可以写在 npm 脚本里面。
+                比较特别的是，npm run新建的这个 Shell，会将当前目录的node_modules/.bin子目录加入PATH变量，执行结束后，再将PATH变量恢复原样。                 
+                这意味着，当前目录的node_modules/.bin子目录里面的所有脚本，都可以直接用脚本名调用，而不必加上路径。
+                比如，当前项目的依赖里面有 Mocha，只要直接写mocha test就可以了。而不用写成下面这样。
+                "test": "./node_modules/.bin/mocha test"
+                由于 npm 脚本的唯一要求就是可以在 Shell 执行，因此它不一定是 Node 脚本，任何可执行文件都可以写在里面。
+                npm 脚本的退出码，也遵守 Shell 脚本规则。如果退出码不是0，npm 就认为这个脚本执行失败。
+
+                向 npm 脚本传入参数，要使用--标明。
+
+                如果 npm 脚本里面需要执行多个任务，那么需要明确它们的执行顺序。
+
+                如果是并行执行（即同时的平行执行），可以使用&符号。
+                如果是继发执行（即只有前一个任务成功，才执行下一个任务），可以使用&&符号
+
+
+                npm 脚本有一个非常强大的功能，就是可以使用 npm 的内部变量。
+
+        首先，通过npm_package_前缀，npm 脚本可以拿到package.json里面的字段。比如，下面是一个package.json。
+
+
+        {
+        "name": "foo", 
+        "version": "1.2.5",
+        "scripts": {
+            "view": "node view.js"
+        }
+        }
+        那么，变量npm_package_name返回foo，变量npm_package_version返回1.2.5。
+
+
+        // view.js
+        console.log(process.env.npm_package_name); // foo
+        console.log(process.env.npm_package_version); // 1.2.5
+        上面代码中，我们通过环境变量process.env对象，拿到package.json的字段值。如果是 Bash 脚本，可以用$npm_package_name和$npm_package_version取到这两个值。
+
+        npm_package_前缀也支持嵌套的package.json字段。
+
+
+        "repository": {
+            "type": "git",
+            "url": "xxx"
+        },
+        scripts: {
+            "view": "echo $npm_package_repository_type"
+        }
+        上面代码中，repository字段的type属性，可以通过npm_package_repository_type取到。
+
+        下面是另外一个例子。
+
+
+        "scripts": {
+        "install": "foo.js"
+        }
+        上面代码中，npm_package_scripts_install变量的值等于foo.js。
+
+        然后，npm 脚本还可以通过npm_config_前缀，拿到 npm 的配置变量，即npm config get xxx命令返回的值。比如，当前模块的发行标签，可以通过npm_config_tag取到。
+
+
+        "view": "echo $npm_config_tag",
+        注意，package.json里面的config对象，可以被环境变量覆盖。
+
+
+        { 
+        "name" : "foo",
+        "config" : { "port" : "8080" },
+        "scripts" : { "start" : "node server.js" }
+        }
+        上面代码中，npm_package_config_port变量返回的是8080。这个值可以用下面的方法覆盖。
+
+
+        $ npm config set foo:port 80
+        最后，env命令可以列出所有环境变量。
+
+
+        "env": "env"
+            </pre>
+            <a href="http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html" target="_blank">npm 脚本</a>
             <ul> 
                 <li>getElementsByClassName('cls1 cls2'),cls1,cls2的顺序可以和html里属性的顺序可以不一致，只要包含就会在结果集合里</li>
                 <li v-for="i in num"><img :src="getImg(i)"/></li>
-              </ul>
+            </ul>
+            
         </div>
         <script>
          new Vue({
