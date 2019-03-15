@@ -1,0 +1,39 @@
+<meta charset="utf-8"/>
+<a href="/a.txt" download="a.txt">同步下载文件</a><br/>
+<!-- <a href="/c.zip" >下载文件with nginx</a><br/>
+<a href="/a.txt" >下载文件with nginx</a><br/> -->
+<a href="/nginx"  download>下载文件with nginx</a><br/>
+<a  download='blob' id="a">下载文件with blob</a><br/>
+
+<a onclick="getfile()">异步下载文件</a><br/>
+<script>
+  var debug = {hello: "world"};
+    var blob = new Blob([JSON.stringify(debug, null, 2)],
+               {type : 'text/plain'});
+    var url = URL.createObjectURL(blob);
+    document.getElementById('a').href=url
+
+    let reader = new FileReader();
+    reader.addEventListener("loadend", function() {
+      console.log(reader.result);
+    });
+ function getfile(){
+  var xhr = new XMLHttpRequest();
+  xhr.open("get", '/stream', true);
+  //xhr.setRequestHeader('Content-Type','application/json; charset=utf-8')
+  xhr.responseType = "blob";
+  xhr.onload = function() {
+    if (this.status == 200) {
+      reader.readAsDataURL(this.response)
+      let url = URL.createObjectURL(this.response);
+     let a= document.createElement('a')
+     a.href=url
+     a.download="stream.txt"
+     a.click() 
+    }
+  };
+  xhr.send();
+ }
+
+ 
+</script>

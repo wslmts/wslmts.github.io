@@ -1,0 +1,11 @@
+使用nginx时，要先启动nginx,再启动server;
+
+前端JS实现字符串/图片/excel文件下载
+后端响应式下载
+Nginx添加header头下载
+前端下载：<a>标签的download属性
+Blob数据
+URL对象和下载字符串文件
+FileReader读取Blob数据
+
+
