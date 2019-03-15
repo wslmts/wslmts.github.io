@@ -174,6 +174,66 @@
               
           </pre>
         </li>
+        <li>
+          <pre>
+            rewrite功能就是集合正则表达式和标志位实现url重写和重定向。rewrite只能放在server{}、location{}、if(){}块中，并且只能对域名后边的出去传递参数外的字符串起作用。
+            表明看rewrite和location功能有点像，都能实现跳转，主要区别在于rewrite是在同一域名内更改获取资源的路径，而location是对一类路径做控制访问或反向代理，可以proxy_pass到其他机器。很多情况下rewrite也会写在location里，它们的执行顺序是：
+
+执行server块的rewrite指令
+
+执行location匹配
+
+执行选定的location中的rewrite指令
+
+如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。
+
+rewrite规则后边，通常会带有flag标志位：
+
+last : 相当于Apache的[L]标记，表示完成rewrite
+
+break : 停止执行当前虚拟主机的后续rewrite指令集
+
+redirect : 返回 302临时重定向，地址栏会显示跳转后的地址
+
+permanent : 返回 301永久重定向，地址栏会显示跳转后的地址
+
+last 和 break 区别：
+
+last一般写在 server和 if中，而 break一般使用在 location中
+
+last不终止重写后的url匹配，即新的url会再从 server走一遍匹配流程，而 break终止重写后的匹配
+
+break和 last都能组织继续执行后面的rewrite指令
+
+rewrite常用正则：
+
+. ： 匹配除换行符以外的任意字符
+
+? ： 重复0次或1次
+
++ ： 重复1次或更多次
+
+* ： 重复0次或更多次
+
+\d ：匹配数字
+
+^ ： 匹配字符串的开始
+
+$ ： 匹配字符串的介绍
+
+{n} ： 重复n次
+
+{n,} ： 重复n次或更多次
+
+[c] ： 匹配单个字符c
+
+[a-z] ： 匹配a-z小写字母的任意一个
+
+可以使用 ()来进行分组，可以通过 $1的形式来引用。
+
+ 
+          </pre>
+        </li>
       </ol>
     </div>
  

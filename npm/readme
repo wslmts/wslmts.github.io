@@ -1,1 +1,0 @@
-执行npm test时，首先会执行pretest,test,posttest;
