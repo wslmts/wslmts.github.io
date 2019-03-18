@@ -14,16 +14,16 @@
 答案是 256px。style、!important 通通靠边站!因为 max-width 会覆盖 width  
 
 5. 替换元素的尺寸从内而外分为 3 类:固有尺寸、HTML 尺寸和 CSS 尺寸;
-固有尺寸指的是替换内容原本的尺寸。
-HTML 尺寸这个概念略微抽象，“HTML 尺寸”只能通过HTML 原生属性改变，这些 HTML 原生属性包括<img>的 width 和 height 属性、<input> 的 size 属性、<textarea>的 cols 和 rows 属性等。
-CSS 尺寸特指可以通过 CSS 的 width 和 height 或者 max-width/min-width 和 max-height/min-height 设置的尺寸，对应盒尺寸中的 content box。
+  固有尺寸指的是替换内容原本的尺寸。
+  HTML 尺寸这个概念略微抽象，“HTML 尺寸”只能通过HTML 原生属性改变，这些 HTML 原生属性包括<img>的 width 和 height 属性、<input> 的 size 属性、<textarea>的 cols 和 rows 属性等。
+  CSS 尺寸特指可以通过 CSS 的 width 和 height 或者 max-width/min-width 和 max-height/min-height 设置的尺寸，对应盒尺寸中的 content box。
 
-如果没有 CSS 尺寸和 HTML 尺寸，则使用固有尺寸作为最终的宽高。
-如果没有 CSS 尺寸，则使用 HTML 尺寸作为最终的宽高。
-如果有 CSS 尺寸，则最终尺寸由 CSS 属性决定。
-如果“固有尺寸”含有固有的宽高比例，同时仅设置了宽度或仅设置了高度，则元素依 然按照固有的宽高比例显示。
-如果上面的条件都不符合，则最终宽度表现为300像素，高度为150像素，宽高比2:1,img例外；
-内联替换元素和块级替换元素使用上面同一套尺寸计算规则.
+  如果没有 CSS 尺寸和 HTML 尺寸，则使用固有尺寸作为最终的宽高。
+  如果没有 CSS 尺寸，则使用 HTML 尺寸作为最终的宽高。
+  如果有 CSS 尺寸，则最终尺寸由 CSS 属性决定。
+  如果“固有尺寸”含有固有的宽高比例，同时仅设置了宽度或仅设置了高度，则元素依 然按照固有的宽高比例显示。
+  如果上面的条件都不符合，则最终宽度表现为300像素，高度为150像素，宽高比2:1,img例外；
+  内联替换元素和块级替换元素使用上面同一套尺寸计算规则.
 
 
 
