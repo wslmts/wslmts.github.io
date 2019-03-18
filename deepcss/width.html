@@ -1,0 +1,26 @@
+<style>
+  .ao,.tu{
+    width: 0;
+    display: inline-block;
+    margin:30px;
+  }
+ .ao::before,.tu::before{
+   outline: 1px solid red;
+
+ }
+ .ao::before{
+   content: 'love u love';
+   
+ }
+ .tu::before{
+   content: 'w love y';  
+ }
+ .tu{
+   direction: rtl;
+ }
+</style>
+
+<div>
+  <span class="ao"></span>
+  <span class="tu"></span>
+</div>
