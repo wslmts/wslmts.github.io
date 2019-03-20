@@ -18,9 +18,98 @@
  .tu{
    direction: rtl;
  }
+
 </style>
 
 <div>
   <span class="ao"></span>
   <span class="tu"></span>
+</div>
+
+<style>
+.icon-menu {
+    display: inline-block;
+    width: 140px; height: 10px;
+    padding: 35px 0;
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    background-color: currentColor;
+    background-clip: content-box;/*关键*/
+}
+</style>
+<i class="icon-menu"></i>
+
+<style>
+ dot{
+   height: 1em;
+   display: inline-block;
+   overflow: hidden;
+   line-height: 1;
+   vertical-align: -.25em;
+ }
+ dot::before{
+  display: block;
+  content: '...\A..\A.';
+  white-space: pre-wrap;
+  animation: load 3s infinite step-start both;
+ }
+ @keyframes load{
+   33% {
+     transform: translateY(-2em)
+   }
+   66% {
+     transform: translateY(-1em)
+   }
+ }
+</style>
+
+<div>正在加载<dot>...</dot></div>
+<h3>计数器</h3>
+<style>
+.counter1{
+  counter-reset: jishu1 1 jishu2 3;
+}
+.counter1::before{
+  content: counter(jishu1,upper-alpha);
+  counter-increment: jishu1;
+  counter-increment: jishu2
+}
+.counter1::after{
+  content: counter(jishu2,lower-roman);
+  counter-increment: jishu2
+}
+</style>
+
+<p class="counter1"></p>
+<style>
+.reset{
+  counter-reset: jishu;
+  padding-left: 20px; 
+}
+.counter:before{
+  content: counters(jishu,'-') '.';
+  counter-increment: jishu;
+}
+</style>
+
+<div class="reset">
+    <div class="counter">我是王小二
+        <div class="reset">
+            <div class="counter">我是王小二的大儿子</div>
+            <div class="counter">我是王小二的二儿子
+                <div class="reset">
+                    <div class="counter">我是王小二的二儿子的大孙子</div>
+                    <div class="counter">我是王小二的二儿子的二孙子</div>
+                    <div class="counter">我是王小二的二儿子的小孙子</div>
+                </div>
+            </div>
+            <div class="counter">我是王小二的三儿子</div>
+        </div>
+    </div>
+    <div class="counter">我是王小三</div>
+    <div class="counter">我是王小四
+        <div class="reset">
+            <div class="counter">我是王小四的大儿子</div>
+        </div>
+    </div>
 </div>
