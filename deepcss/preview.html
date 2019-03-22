@@ -1,0 +1,87 @@
+<style>
+  *{margin:0;padding:0}
+  .wrap{
+    margin:auto;
+    width:800px;
+    height:800px;
+    padding-top:30px;
+  }
+  .box,.preview{
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+  } 
+  .box img,.preview img{
+    width:300px;
+    height:300px;
+    
+  }
+  .area,.parea{
+    width:80px;
+    height: 80px; 
+  }
+  .area{
+    outline:200px solid rgba(0,0,0,0.5);
+    cursor: move;
+    position: absolute;
+    top:50px;
+    left:60px;
+  }
+  .preview img {
+    position: absolute;
+    left: -50px; top: -60px;
+}
+</style>
+<div class="wrap">
+    <div class="box">
+        <div class="area" id="area"></div>
+        <img src="../img/attributes-properties.png"/>
+      </div>
+      <div class="preview">
+          <div class="parea"></div>
+          <img src="../img/attributes-properties.png" id="show"/>
+        </div>
+</div>
+<script>
+ let img=document.getElementById('show')
+ let area=document.getElementById('area')
+ let ismoving=true
+ let data={}
+ area.addEventListener('mousedown',function(event){
+   
+      ismoving = true
+      data = {
+        left: area.offsetLeft,
+        top: area.offsetTop,
+        x: event.pageX,
+        y: event.pageY
+      };
+    
+ })
+
+ document.addEventListener('mousemove',function(event){
+   if(ismoving){
+    event.preventDefault();
+            // 移动距离
+            var moveX = event.pageX - data.x;
+            var moveY = event.pageY - data.y;
+
+            // 目标坐标
+            var left = data.left + moveX;
+            var top = data.top + moveY;
+            //todo 边界判断
+            // 重定位
+            area.style.left=left+'px'
+            area.style.top=top+'px'
+            
+            img.style.left=-1 * left+'px'
+            img.style.top=-1 * top+'px'
+             
+
+   }
+ })
+ document.addEventListener('mouseup',function(){
+  ismoving=false
+ })
+</script>
