@@ -94,3 +94,42 @@ rect(30px 200px 200px 20px)
 我们都知道，内联元素默认是基线对齐的，而基线就是 x 的底部，而 1ex 就是一个 x 的高 度。设想一下，假如图标高度就是 1ex，同时背景图片居中，岂不是图标和文字天然垂直居中， 而且完全不受字体和字号的影响?因为 ex 就是一个相对于字体和字号的单位
 
 ```
+### font-style
+italic 是使用当前字体的斜体字体，而 oblique 只是单纯地让文字倾斜。
+### font-face
+```
+  @font-face {
+      font-family: ICON;
+      src: url('icon.eot') format('eot');
+      src: url('icon.eot?#iefix') format('embedded-opentype'),
+          url('icon.woff2') format("woff2")
+          url('icon.woff') format("woff"),
+          url('icon.ttf') format("typetrue"),
+          url('icon.svg#icon') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+ svg 格式是为了兼容 iOS 4.1 及其之前的版本，考虑到现如今 iOS 的版本数已经翻了一 番，所以 svg 格式的兼容代码大可舍弃。
+ eot 格式是 IE 私有的。注意，目前所有版本的 IE 浏览器都支持 eot 格式，并不是只 有 IE6~IE8 支持。只是，IE6~IE8 仅支持 eot 这一种字体格式。
+ woff 是 web open font format 几个词的首字母简写，是专门为 Web 开发而设计的字体格式，显然是优先使用的字体格式，其字体尺寸更小，加载更快。Android 4.4 开始全 面支持。
+ woff2 是比 woff 尺寸更小的字体，小得非常明显。因此，Web 开发第一首选字体就 是 woff2，只是此字体目前仅 Chrome 和 Firefox 支持得比较好。
+ttf 格式作为系统安装字体比较多，Web 开发也能用，就是尺寸大了点儿，优点在于 老版本 Android 也支持。
+
+这里的#iefix 确实没什么用，真正有用的其实是前面的问号。是这样的，IE9 之前的版本解析有一个严重的问题，当 src 属性包含多个 url()时，会把长长的字符当作一个地址解析而返回 404 错误。因此把 eot 格式放在第一位，然后在字体文件 url 地址后加上问号，这样 IE9 之前的版本会把问号之后 的内容当作 url 的参数。好吧，#iefix 严格来说还是有点儿用的，它可以让请求地址短一 些，因此请求地址是不包括锚点标志#及其后面的内容的。
+
+“为什么需要两个 src”这个问题了。如果是原生的 IE7 和 IE8 浏览器，第一个src 实际上是多余的，为什么这么讲呢?
+之所以要放上来，很大一部分原因是为了测试工程师。 因为现在测试工程师测试低版本的 IE 浏览器喜欢使用兼容模式，兼容模式的 IE 和原生同版本 的 IE 的解析是有区别的，其中区别之一就是兼容模式的 IE7 和 IE8 不认识问号(?)解决方案， 导致第二个 src 无法识别，不得已才多了第一行的 src。
+
+font-weight:normal 和 font-style:normal 是不是多余的?我的回答是，如果你 没有同字体名的多字体设置，则它就是多余的，至少我在常规项目中删掉这两行 CSS 没有出现 任何异常。
+最后的问题是:format()功能符有什么作用，可不可以省略?我的回答是最好不要省略。 format()功能符的作用是让浏览器提前知道字体的格式，以决定是否需要加载这个字体，而 不是加载完了之后再自动判断。
+```
+### text-align:justify
+```
+在默认设置下，text-align:justify 要想有两端对齐的效果，需
+要满足两点:一是有分隔点，如空格;二是要超过一行，此时非最后一行内容会两端对齐。
+```
+### background-position
+positionX = (容器的宽度 - 图片的宽度) * percentX; positionY = (容器的高度 - 图片的高度) * percentY;
+
+### visibility
+父元素设置 visibility:hidden，子元素也 会看不见，究其原因是继承性，子元素继承了 visibility:hidden，但是，如果子元素设置 了 visibility:visible，则子元素又会显示出来。这个和 display 隐藏有着质的区别。
