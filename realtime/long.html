@@ -1,0 +1,27 @@
+<div id="time"></div>
+<script>
+  var time=document.getElementById('time')
+ 
+  function getTime(){
+    var xhr=new XMLHttpRequest()
+    xhr.timeout=4000
+    xhr.open('get','/time')
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState==4){
+         if(xhr.status==200){
+          time.innerHTML=xhr.response
+         }
+         getTime() 
+      }
+     
+    }
+    xhr.send()
+    xhr.ontimeout=function(){
+       getTime()
+    }
+  }
+
+ 
+ getTime()
+  
+</script>

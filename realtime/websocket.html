@@ -1,0 +1,26 @@
+<style>
+  #time{
+    white-space: pre;
+  }
+</style>
+<input id='txt'/>
+<ul id="time"></ul>
+<script>
+  var time=document.getElementById('time')
+  var txt=document.getElementById('txt')
+  var ws=new WebSocket('ws://localhost:8081/time') 
+  ws.onopen=function(){
+   time.innerHTML='可以交流了';
+  }
+  ws.onmessage=function(e){
+    console.log(e)
+    time.innerHTML+=`<li>SERVER 说：${e.data}</li>`
+  }
+  txt.onkeyup=function(e){
+    if(e.keyCode==13){
+      ws.send(txt.value)
+      time.innerHTML+=`<li>你     说：${txt.value}</li>`
+      txt.value=""
+    }
+  }
+</script>

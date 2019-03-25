@@ -1,0 +1,16 @@
+<div id="time"></div>
+<script>
+  var time=document.getElementById('time')
+  var xhr=new XMLHttpRequest()
+  function getTime(){
+    xhr.open('get','/time')
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState==4&&xhr.status==200){
+         time.innerHTML=xhr.response
+      }
+    }
+    xhr.send()
+  }
+ setInterval(getTime,1000)
+  
+</script>
