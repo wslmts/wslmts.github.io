@@ -1,0 +1,15 @@
+<div id="time"></div>
+<script>
+  var time=document.getElementById('time')
+  var es=new EventSource('/events') 
+  es.onopen=function(e){
+    console.log(e);
+  }
+  es.onmessage=function(e){
+   time.innerHTML=e.data
+  }
+  es.onerror=function(e){
+    console.log(e);
+  }
+  
+</script>
