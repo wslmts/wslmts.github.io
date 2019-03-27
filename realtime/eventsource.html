@@ -8,8 +8,14 @@
   es.onmessage=function(e){
    time.innerHTML=e.data
   }
+  
   es.onerror=function(e){
     console.log(e);
   }
-  
+  es.addEventListener('status', function(e) {
+    console.log(111,e.data)
+  }, false);
+  time.onclick=function(){
+    es.close()
+  }
 </script>

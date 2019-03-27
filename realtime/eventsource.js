@@ -39,6 +39,8 @@ function sendSSE(req, res) {
 function constructSSE(res, id, data) {
   res.write('id: ' + id + '\n');
   res.write("data: " + data + '\n\n');
+  res.write('event:  status'  + '\n');
+  res.write("data: ok"  + '\n\n');
 }
 
 function debugHeaders(req) {

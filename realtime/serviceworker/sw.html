@@ -1,0 +1,24 @@
+<head>
+  <link rel="stylesheet" href="a.css"/>
+  <link rel="stylesheet" href="b.css"/>
+</head>
+<body>
+  <h3>this is a demo for service worker</h3>
+  <img src="sw-events.png"/>
+  <script>
+  window.onload=function(){
+    let worker;
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(function(reg){
+      console.log('ServiceWorker ', reg);
+    //  worker=reg.installing||reg.waiting ||reg.active
+    },function(err){
+      console.log('ServiceWorker registration failed: ', err);
+    })
+    // if(!worker) return
+    // console.log(123,worker)
+    // worker.onstatechange=function(e){
+    //   console.log(11111,e)
+    // }
+  }
+  </script>
+</body>
