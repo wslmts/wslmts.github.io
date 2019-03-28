@@ -1,0 +1,14 @@
+<script>
+let timing=performance.timing
+document.write('<p>redirect time: ', timing.redirectEnd-timing.redirectStart,'</p>')
+document.write('<p>readcache time: ', timing.domainLookupStart-timing.fetchStart,'</p>')
+document.write('<p>looking up dns time: ', timing.domainLookupEnd-timing.domainLookupStart,'</p>')
+document.write('<p>tcp connect time: ', timing.connectEnd-timing.connectStart,'</p>')
+document.write('<p>request time: ', timing.responseStart-timing.requestStart,'</p>')
+document.write('<p>response time: ', timing.responseEnd-timing.responseStart,'</p>')
+document.write('<p>parse dom time: ', timing.domComplete - timing.domLoading,'</p>')
+document.write('<p>onload time: ', timing.loadEventEnd-timing.loadEventStart,'</p>')
+</script>
+<p>
+  <img src="img/timing-overview.png" style="width: 800px;"/>
+</p>
