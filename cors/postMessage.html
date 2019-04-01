@@ -1,0 +1,12 @@
+<iframe src="http://localhost:3001/b.html" id="f" onload="load()"></iframe>
+<div id="c"></div>
+<script>
+function load(){
+  let f=document.getElementById('f')
+  f.contentWindow.postMessage('this is from page 3001','http://localhost:3001')
+}
+
+window.onmessage=function(e){
+ document.getElementById('c').innerHTML=e.data
+}
+</script>

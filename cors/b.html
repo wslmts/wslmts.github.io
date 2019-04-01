@@ -1,0 +1,7 @@
+<div id="b"></div>
+<script>
+window.parent.postMessage('bbb','http://localhost:3000')
+window.onmessage=function(e){
+ document.getElementById('b').innerHTML=e.data
+}
+</script>

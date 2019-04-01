@@ -1,0 +1,21 @@
+<body>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<div id="app"></div>
+<script>
+  $.ajax({
+    url:'/cors',
+    dataType:'jsonp',
+    type:'get',
+    jsonp:'callback1',
+    jsonpCallback:'log',
+    success:(data)=>{
+      console.log('success',data)
+    }
+  })
+  function log(data){
+    console.log('callback',data)
+    $("#app").html(data)
+  }
+</script>
+
+</body>
