@@ -7,6 +7,6 @@
 6.websocket //参考realtime下websocket
 7.window.name + iframe
 8.location.hash + iframe
-9.document.domain + iframe
+9.document.domain + iframe  //该方式只能用于二级域名相同的情况下
 
 ```
