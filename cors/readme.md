@@ -10,3 +10,4 @@
 9.document.domain + iframe  //该方式只能用于二级域名相同的情况下
 
 ```
+[node debug](https://mp.weixin.qq.com/s/9odmKcTqMDGR5ZZ8i7v4ow) 

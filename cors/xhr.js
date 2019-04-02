@@ -24,5 +24,13 @@ app.get('/servercors',function(req,res){
      })
    }).end()
 })
- 
+app.post('/beacon',function(req,res){
+  let data=''
+  req.on('data',function(c){
+    data+=c
+  })
+  req.on('end',function(){
+    res.end(data)
+  })
+})
 app.listen(3000)
