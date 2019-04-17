@@ -8,7 +8,7 @@
 <script>
   var time=document.getElementById('time')
   var txt=document.getElementById('txt')
-  var ws=new WebSocket('ws://localhost:8081/time') 
+  var ws=new WebSocket('ws://localhost:8006/time') 
   ws.onopen=function(){
    time.innerHTML='可以交流了';
   }

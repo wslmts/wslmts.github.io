@@ -3,7 +3,7 @@ let WebSocket = require('ws');
 let app = express();
 app.use(express.static(__dirname));
 const wss = new WebSocket.Server({
-  port: 8081
+  port: 8006
 });
 wss.on('connection', function connection(ws) {
   console.log('get connection')
@@ -15,4 +15,4 @@ wss.on('connection', function connection(ws) {
 
  
 });
-app.listen(8080);
+app.listen(8005);

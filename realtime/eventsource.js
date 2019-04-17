@@ -17,7 +17,7 @@ http.createServer(function(req, res) {
     res.write(fs.readFileSync(__dirname + '/eventsource.html'));
     res.end();
   }
-}).listen(8080);
+}).listen(8004);
 
 function sendSSE(req, res) {
   res.writeHead(200, {
