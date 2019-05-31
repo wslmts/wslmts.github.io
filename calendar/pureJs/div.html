@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>calendar</title>
+        <link rel="stylesheet" type="text/css" href="../../css/main.css"/>    
+        <script src="../../vue.js"></script>
+        <script src="../util.js"></script>  
+        <style>
+          #app{
+            width: 510px; 
+          }
+          #app>div{
+            width: 70px;
+            height:70px;
+            float: left;
+            text-align: center;
+            vertical-align: middle;
+          }
+          #app>section{
+            margin-bottom: 20px;
+          }
+          #app>section::after{
+            display: block;
+            clear: both;
+            content: '';
+          }
+          p:nth-child(2){
+            text-align: center;
+            width: 90%
+          }
+        </style>
+    </head>
+    <body>
+      <div id="app">
+          <section>
+              <p style="float:left" @click="change(-1)">&lt;</p>
+              <p style="float:left">{{title}}</p>
+              <p style="float:right" @click="change(1)">&gt;</p>
+          </section>
+          <div v-for="i of week">{{i}}</div>
+          <div v-for='v in dates'>{{v}}</div>
+      </div>
+      <script>
+      new Vue({
+        el:'#app',
+        data:{
+          week:['一','二','三','四','五','六','日'],
+          title:formatDate(new Date()),
+          time:new Date(),
+        },
+        computed:{
+          dates(){ 
+            return this.buildCalendar(this.time)
+          }
+        },
+        mixins:[commom],
+        methods:{                
+          buildCalendar(now){
+            let list=[]           
+            let daysInMonth=[31,get2Days(),31,30,31,30,31,31,30,31,30,31]
+            let monthDays=daysInMonth[now.getMonth()]
+            let firstDayOfMonth=new Date(now.getFullYear(),now.getMonth(),1).getDay()
+             
+            for (let i = 1; i <firstDayOfMonth; ++i) {
+               list.push('')
+            }
+            for(let i=1;i<=monthDays;i++){
+              list.push(i)
+            }
+            return list
+          }       
+        },
+      })
+     
+      </script>
+  </body>
+  </html>

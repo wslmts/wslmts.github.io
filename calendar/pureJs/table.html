@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>calendar</title>
+        <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="../calendar.css"/>
+        <script src="../../vue.js"></script>
+        <script src="../util.js"></script>     
+    </head>
+    <body>
+      <div id="app">
+        <table>
+          <tr>
+            <td @click="change(-1)">&lt;</td>
+            <td colspan="5">{{title}}</td>
+            <td @click="change(1)">&gt;</td>
+          </tr>
+          <tr>
+            <th v-for="i of week">{{i}}</th>
+          </tr>
+          <tr v-for="i in trCount">
+            <td v-for="j in 7">{{dates[i-1][j-1]}}</td>
+          </tr>
+        </table>
+      </div>
+      <script>
+      new Vue({
+        el:'#app',
+        data:{
+          week:['一','二','三','四','五','六','日'],
+          trCount:6,
+          title:formatDate(new Date()),
+          time:new Date(),
+        },
+        computed:{
+          dates(){
+            return this.buildCalendar(this.time)
+          }
+        },
+        mixins:[commom],
+        methods:{
+          buildCalendar(now){
+            let list=[]        
+            let daysInMonth=[31,get2Days(),31,30,31,30,31,31,30,31,30,31]
+            let monthDays=daysInMonth[now.getMonth()]
+            let firstDayOfMonth=new Date(now.getFullYear(),now.getMonth(),1).getDay()
+            this.trCount=Math.ceil((firstDayOfMonth+monthDays)/7)
+            for (let i = 0; i < this.trCount; i++) {
+              list.push([]);
+              for (let j = 0; j < 7; j++) {
+                 let idx=i*7+j; //表格单元的自然序号
+                 let value=idx-firstDayOfMonth+2; //计算日期
+                 if(value<=0||value>monthDays) value=''                
+                 list[i][j]=value
+              }
+            }
+            return list
+          },
+        }
+
+      })
+      </script>
+  </body>
+  </html>
