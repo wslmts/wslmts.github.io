@@ -1,0 +1,59 @@
+<html>
+    <head></head>
+    <link type="text/css" rel="stylesheet" href="../css/main.css"/>
+    <script src="../vue.js"></script>
+    <body>
+        <div id="app">
+            <h3>$attrs和$listeners</h3>
+        </div>
+        <script>
+          Vue.component('child',{
+            inject:['for','getMsg'],//得到父组件传递过来的数据
+            data(){
+                return {
+                    mymessage:this.for,
+                    message:'www'
+                }
+            },
+            mounted(){
+                  this.getMsg()
+            },
+            template:`
+                <div>
+                    <input type="tet" v-model="mymessage"> 
+                </div>`
+          })
+            Vue.component('parent',{
+                template:`
+                    <div>
+                        <p>this is parent compoent!</p>
+                        <child></child>
+                    </div>
+                `,
+                provide:{
+                    for:'test',
+                    getMsg(){
+                        console.log(this.message)
+                    }
+                },
+                data(){
+                    return {
+                        message:'hello'
+                    }
+                }
+            })
+    var app=new Vue({
+        el:'#app',
+        template:`
+            <div>
+                    <parent></parent>
+            </div>
+        `
+    })
+        
+        </script>
+    </body>
+</html>
+
+
+
