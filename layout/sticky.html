@@ -1,0 +1,59 @@
+<html>
+  <head>
+     
+    <style>
+      *{
+        margin:0;
+      }
+      section{
+        width:600px;
+        margin:20px auto;
+      }
+      h1{
+        height:50px;
+        background: red;
+      } 
+      main{
+        height: 200px;
+        background: yellowgreen;
+      }
+      footer{
+        height: 50px;
+        background: orange;
+      }
+      h1,footer{
+        position:sticky;
+      }
+      h1{
+        top:0;
+        z-index: 3;
+      }
+     footer{
+       z-index: 2;
+       bottom: 0
+     }
+      /* main{
+        position: relative;
+      } */
+    </style>
+  </head>
+  <body>
+     
+    <section>
+      <h1></h1>
+      <main>关键，设置position，z-index,top（或其他方向）</main>
+      <footer>父元素不能overflow:hidden</footer>
+    </section>
+    <section>
+        <h1></h1>
+        <main></main>
+        <footer></footer>
+      </section>
+      <section>
+          <h1></h1>
+          <main></main>
+          <footer></footer>
+      </section>
+  
+  </body>
+</html>

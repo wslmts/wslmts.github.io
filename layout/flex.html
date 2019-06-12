@@ -1,0 +1,80 @@
+<html>
+  <head>
+     
+    <style>
+      body{
+        margin:0;
+      }
+      .wrap,.wrap1{
+        display: flex;
+        margin-bottom: 10px;
+      }
+     .wrap>div,.wrap>span{
+       /* width:200px; */
+       height:200px;
+       flex:1 0 200px; /* 0表示不收缩，不扩展 */
+     }
+     div>div:first-child,.wrap>span:first-child{
+       background:red;
+     }
+     div>div:nth-child(2),.wrap>span:nth-child(2){
+       background:green;
+       height: 300px;
+     }
+     div>div:nth-child(3),.wrap>span:nth-child(3){
+       background:orange;
+       
+     }
+     div>div:nth-child(4),.wrap>span:nth-child(4){
+       background:greenyellow;
+       height:250px;
+     }
+     .align1{
+       flex-direction: row-reverse;
+       /* justify-content: flex-end; */
+     } 
+     .align1>div:nth-child(4){
+       order:-1
+     }    
+     .wrap1>div{
+       width:200px;
+
+     }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div>作用在flex容器上	
+          flex-direction
+          flex-wrap
+          flex-flow
+          justify-content
+          align-items
+          align-content</div>
+      <div>flex-flow: ‘flex-direction’ || ‘flex-wrap’</div>
+      <div></div>
+      <div>作用在flex子项上
+          order
+          flex-grow
+          flex-shrink
+          flex-basis
+          flex
+          align-self
+      </div>
+    </div>
+    <div class="wrap1 align1">
+        <div>justify-content属性决定了水平方向子项的对齐和分布方式</div>
+        <div>如果不设置高度，默认高度都和最高的一个盒子保持一致</div>
+        <div>align-content可以看成和justify-content是相似且对立的属性，justify-content指明水平方向flex子项的对齐和分布方式，
+          而align-content则是指明垂直方向每一行flex元素的对齐和分布方式。如果所有flex子项只有一行，则align-content属性是没有任何效果的</div>
+        <div>order越大越靠后</div>
+    </div>
+
+    <div class="wrap">
+       <span>1</span>
+       <span>2</span>
+       <span>3</span>
+       <span>4</span>
+    </div>
+  </body>
+</html>
