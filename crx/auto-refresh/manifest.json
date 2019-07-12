@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "autorefresh",
+  "version": "1.0",
+  "description": "自动刷新页面",
+  "content_scripts": [
+    {
+        "matches": [ "*://*/*"],
+        "js": ["refresh.js"]
+    }
+  ]
+}
