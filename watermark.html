@@ -35,12 +35,13 @@
     var base64Url = canvas.toDataURL();
     const watermarkDiv = document.createElement("div");
    // watermarkDiv.onclick=function(){alert('aaa')}
+   let h = container.scrollHeight
     watermarkDiv.setAttribute('style', `
       position:absolute;
       top:0;
       left:0;
       width:100%;
-      height:100%;
+      height:${h}px;
       z-index:${zIndex};
       pointer-events:none;
       background-repeat:repeat;
