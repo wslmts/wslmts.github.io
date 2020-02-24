@@ -1,0 +1,63 @@
+<html>
+    <style>
+         img{
+             width:150px;
+         }
+         ul{
+             width:760px;
+             list-style-type: none;
+             position: relative;
+             padding:0;
+             margin:0;
+         }
+         div{
+             width: 460px;
+         }
+         li{
+             position: absolute ;
+             width:150px;
+         }
+    </style>
+    <body>
+        <div>
+        <ul>
+            <li><img src="1.jpg"/></li>
+            <li><img src="2.jpg"/></li>
+            <li><img src="3.jpg"/></li>
+            <li><img src="4.jpg"/></li>
+            <li><img src="5.jpg"/></li>
+            <li><img src="6.jpg"/></li>
+            <!-- <li><img src="4.jpg"/></li>
+            <li><img src="5.jpg"/></li>
+            <li><img src="6.jpg"/></li>
+            <li><img src="1.jpg"/></li>
+            <li><img src="2.jpg"/></li>
+            <li><img src="3.jpg"/></li> -->
+        </ul>
+    </div>
+        <script>
+            window.onload=function(){
+          let lis=document.querySelectorAll('li')
+          let arr=[];
+          let colnum=3
+          lis.forEach((v,i)=>{
+            if(i<colnum){
+               v.style.top=0+"px"
+               v.style.left=(i%colnum)*150+'px' 
+               arr.push(v.clientHeight) 
+            }else{
+               let min = Math.min(...arr)
+               let k=arr.findIndex(v=>{return v==min})
+               console.log(min,k)
+             //  v.style=`top:${arr[k]}px;left:250*${i%colnum}px`                        
+               v.style.top=arr[k]+"px"
+               v.style.left=(k%colnum)*150+'px'
+               arr[k]+=v.clientHeight
+            }
+            
+          })
+          console.log()
+        }
+        </script>
+    </body>
+</html>
