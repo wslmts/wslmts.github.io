@@ -1,0 +1,51 @@
+<html>
+  <head> 
+    <style>
+      .outer {
+  height: 100px;
+  padding-left: 100px;
+  padding-right: 200px;
+}
+
+.left {
+  position: relative;
+  left: -100px;
+
+  float: left;
+  margin-left: -100%;
+
+  width: 100px;
+  height: 100px;
+  background: tomato;
+}
+
+.right {
+  position: relative;
+  left: 200px;
+
+  float: right;
+  margin-left: -200px;
+
+  width: 200px;
+  height: 100px;
+  background: gold;
+}
+
+.center {
+  float: left;
+
+  width: 100%;
+  height: 100px;
+  background: lightgreen;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="center">content</div>
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+  </body>
+</html>
