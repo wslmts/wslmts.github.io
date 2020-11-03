@@ -1,0 +1,39 @@
+<style>
+.wrap{
+    display:flex;
+}
+.left{
+    border :solid 1px red;
+    flex-basis: 200px;
+}
+.left>p{
+    height:600px; 
+}
+.right{
+ border: solid 1px green;
+ flex-grow: 1;
+}
+ 
+</style>
+<div class="wrap">
+    <div class="left" id="left">
+        <p>菜单栏</p>
+    </div>
+    <div class="right">
+        <section>最简单的收缩页面实现
+<button type="button" id="btn">collapse</button>
+<button type="button" id="btn1">expand</button>
+        </section>
+    </div>
+</div>
+<script>
+    let left = document.querySelector('#left')
+    let btn =  document.querySelector('#btn')
+    let btn1 =  document.querySelector('#btn1')
+ btn.onclick=function(){
+    left.style.flexBasis='0px'
+ } 
+ btn1.onclick=function(){
+     left.style.flexBasis="200px"
+ }
+</script>

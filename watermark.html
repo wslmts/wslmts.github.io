@@ -35,13 +35,12 @@
     var base64Url = canvas.toDataURL();
     const watermarkDiv = document.createElement("div");
    // watermarkDiv.onclick=function(){alert('aaa')}
-   let h = container.scrollHeight
     watermarkDiv.setAttribute('style', `
       position:absolute;
       top:0;
       left:0;
       width:100%;
-      height:${h}px;
+      height:${container.scrollHeight}px;
       z-index:${zIndex};
       pointer-events:none;
       background-repeat:repeat;
@@ -58,7 +57,7 @@
 
 // 调用
 __canvasWM({
-  content: 'yourname'
+  content: 'zcc'
 })
 </script>
 </body>
