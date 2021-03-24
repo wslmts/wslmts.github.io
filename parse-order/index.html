@@ -14,7 +14,7 @@
         console.log('DOMContentLoaded');
       })
     </script>
-    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+    
 
     <script>
       console.log('到我了没');
@@ -29,5 +29,16 @@
       如果页面中同时存在css和js，并且存在js在css后面，则DOMContentLoaded事件会在css加载完后才执行;
       其他情况下，DOMContentLoaded都不会等待css加载，并且DOMContentLoaded事件也不会等待图片、视频等其他资源加载。
     </pre>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+    <p>
+      css阻塞内容后面的dom
+    </p>
+   
+    <style>
+      h1 {
+        color: green !important
+      }
+    </style>
+     
   </body>
 </html>
